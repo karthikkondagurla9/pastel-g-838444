@@ -17,7 +17,7 @@ model User {
   name       String?
   createdAt  DateTime       @default(now())
   identities UserIdentity[]
-  isDeleted  Boolean?
+  isDeleted  Boolean?       @default(false)
 
   @@index([email])
 }
@@ -31,7 +31,7 @@ model UserIdentity {
   metadata   Json? // Provider-specific data (passwordHash, tokens, profile data, etc.)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  isDeleted  Boolean?
+  isDeleted  Boolean? @default(false)
 
   @@unique([provider, providerId])
   @@index([userId])
@@ -49,9 +49,91 @@ model Otp {
   purpose    String?  // 'login', 'registration', 'password_reset', '2fa', etc.
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  isDeleted  Boolean?
+  isDeleted  Boolean? @default(false)
 
   @@index([identifier, type])
   @@index([expiresAt])
   @@index([identifier, type, verified])
+}
+
+model Customer {
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String
+  phone          String
+  avatar         String
+  joinDate       String
+  shopifyId      String?
+  ltv            Float
+  avgOrderValue  Float
+  totalOrders    Int
+  orders         Order[]
+  tickets        Ticket[]
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Order {
+  id             Int      @id @default(autoincrement())
+  customerId     Int
+  customer       Customer @relation(fields: [customerId], references: [id])
+  shopifyOrderId String?
+  items          Json     // Array of strings
+  total          Float
+  date           String
+  status         String   // 'delivered' | 'processing' | 'shipped' | 'cancelled'
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Ticket {
+  id             Int      @id @default(autoincrement())
+  customerId     Int
+  customer       Customer @relation(fields: [customerId], references: [id])
+  subject        String
+  status         String   // 'open' | 'pending' | 'closed'
+  priority       String   // 'low' | 'medium' | 'high' | 'urgent'
+  lastMessage    String
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model AutomationFlow {
+  id             Int      @id @default(autoincrement())
+  name           String
+  description    String
+  status         String   // 'active' | 'paused'
+  dailyTriggers  Int
+  successRate    Float
+  lastRun        String
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model FlowRun {
+  id             Int      @id @default(autoincrement())
+  flowId         Int
+  flowName       String
+  status         String   // 'success' | 'failed' | 'running'
+  timestamp      String
+  details        String
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model KBItem {
+  id             Int      @id @default(autoincrement())
+  name           String
+  type           String
+  size           String
+  uploadedDate   String
+  storageKey     String?  // Key in storage provider
+  isDeleted      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

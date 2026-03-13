@@ -6,6 +6,11 @@ import { secureHeaders } from 'hono/secure-headers';
 
 // import authRoutes from './routes/auth.routes.ts';
 
+import crmRoutes from './routes/crm.routes.ts';
+import supportRoutes from './routes/support.routes.ts';
+import automationRoutes from './routes/automation.routes.ts';
+import kbRoutes from './routes/kb.routes.ts';
+
 const app = new Hono();
 
 // set security HTTP headers only in production
@@ -31,8 +36,11 @@ app.get('/health', c => {
     return c.text('OK');
 });
 
-// Mount auth routes only if auth needs to be implemented
-// app.route('/auth', authRoutes);
+// Mount routes
+app.route('/', crmRoutes);
+app.route('/tickets', supportRoutes);
+app.route('/automations', automationRoutes);
+app.route('/kb', kbRoutes);
 
 // send back a 404 error for any unknown api request
 app.notFound(() => {
