@@ -132,11 +132,11 @@ exports.Prisma.CustomerScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   avatar: 'avatar',
-  joinDate: 'joinDate',
   shopifyId: 'shopifyId',
   ltv: 'ltv',
   avgOrderValue: 'avgOrderValue',
   totalOrders: 'totalOrders',
+  joinDate: 'joinDate',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -145,11 +145,11 @@ exports.Prisma.CustomerScalarFieldEnum = {
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   customerId: 'customerId',
+  total: 'total',
+  status: 'status',
+  date: 'date',
   shopifyOrderId: 'shopifyOrderId',
   items: 'items',
-  total: 'total',
-  date: 'date',
-  status: 'status',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -167,31 +167,6 @@ exports.Prisma.TicketScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.AutomationFlowScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  status: 'status',
-  dailyTriggers: 'dailyTriggers',
-  successRate: 'successRate',
-  lastRun: 'lastRun',
-  isDeleted: 'isDeleted',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.FlowRunScalarFieldEnum = {
-  id: 'id',
-  flowId: 'flowId',
-  flowName: 'flowName',
-  status: 'status',
-  timestamp: 'timestamp',
-  details: 'details',
-  isDeleted: 'isDeleted',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.KBItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -204,6 +179,30 @@ exports.Prisma.KBItemScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AutomationFlowScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status',
+  dailyTriggers: 'dailyTriggers',
+  successRate: 'successRate',
+  lastRun: 'lastRun',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FlowRunScalarFieldEnum = {
+  id: 'id',
+  flowId: 'flowId',
+  status: 'status',
+  name: 'name',
+  timestamp: 'timestamp',
+  details: 'details',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -211,10 +210,6 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-};
-
-exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -242,9 +237,9 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   Order: 'Order',
   Ticket: 'Ticket',
+  KBItem: 'KBItem',
   AutomationFlow: 'AutomationFlow',
-  FlowRun: 'FlowRun',
-  KBItem: 'KBItem'
+  FlowRun: 'FlowRun'
 };
 /**
  * Create the Client
@@ -298,13 +293,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// Auth models\nmodel User {\n  id         String         @id @default(uuid())\n  email      String         @unique\n  name       String?\n  createdAt  DateTime       @default(now())\n  identities UserIdentity[]\n  isDeleted  Boolean?       @default(false)\n\n  @@index([email])\n}\n\nmodel UserIdentity {\n  id         String   @id @default(uuid())\n  userId     String\n  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  provider   String // 'Google', 'GitHub', 'EmailPassword', 'PhoneOTP', etc.\n  providerId String // Provider's unique user ID (or email for email/password)\n  metadata   Json? // Provider-specific data (passwordHash, tokens, profile data, etc.)\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  isDeleted  Boolean? @default(false)\n\n  @@unique([provider, providerId])\n  @@index([userId])\n}\n\nmodel Otp {\n  id         String   @id @default(uuid())\n  identifier String // Phone number or email address\n  type       String // 'phone' or 'email'\n  otp        String // Hashed OTP\n  expiresAt  DateTime\n  attempts   Int      @default(0)\n  verified   Boolean  @default(false)\n  purpose    String? // 'login', 'registration', 'password_reset', '2fa', etc.\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  isDeleted  Boolean? @default(false)\n\n  @@index([identifier, type])\n  @@index([expiresAt])\n  @@index([identifier, type, verified])\n}\n\nmodel Customer {\n  id            Int      @id @default(autoincrement())\n  name          String\n  email         String\n  phone         String\n  avatar        String\n  joinDate      String\n  shopifyId     String?\n  ltv           Float\n  avgOrderValue Float\n  totalOrders   Int\n  orders        Order[]\n  tickets       Ticket[]\n  isDeleted     Boolean  @default(false)\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel Order {\n  id             Int      @id @default(autoincrement())\n  customerId     Int\n  customer       Customer @relation(fields: [customerId], references: [id])\n  shopifyOrderId String?\n  items          Json // Array of strings\n  total          Float\n  date           String\n  status         String // 'delivered' | 'processing' | 'shipped' | 'cancelled'\n  isDeleted      Boolean  @default(false)\n  createdAt      DateTime @default(now())\n  updatedAt      DateTime @updatedAt\n}\n\nmodel Ticket {\n  id          Int      @id @default(autoincrement())\n  customerId  Int\n  customer    Customer @relation(fields: [customerId], references: [id])\n  subject     String\n  status      String // 'open' | 'pending' | 'closed'\n  priority    String // 'low' | 'medium' | 'high' | 'urgent'\n  lastMessage String\n  isDeleted   Boolean  @default(false)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel AutomationFlow {\n  id            Int      @id @default(autoincrement())\n  name          String\n  description   String\n  status        String // 'active' | 'paused'\n  dailyTriggers Int\n  successRate   Float\n  lastRun       String\n  isDeleted     Boolean  @default(false)\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel FlowRun {\n  id        Int      @id @default(autoincrement())\n  flowId    Int\n  flowName  String\n  status    String // 'success' | 'failed' | 'running'\n  timestamp String\n  details   String\n  isDeleted Boolean  @default(false)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel KBItem {\n  id           Int      @id @default(autoincrement())\n  name         String\n  type         String\n  size         String\n  uploadedDate String\n  storageKey   String? // Key in storage provider\n  isDeleted    Boolean  @default(false)\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "3a29413c4770fb910ed9da8aea990dedb77e23d088bfb89ed666a86b5da06878",
+  "inlineSchema": "// This is your Prisma schema file,\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"linux-musl-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n// Auth models\nmodel User {\n  id         String         @id @default(uuid())\n  email      String         @unique\n  name       String?\n  createdAt  DateTime       @default(now())\n  identities UserIdentity[]\n  isDeleted  Boolean?       @default(false)\n\n  @@index([email])\n}\n\nmodel UserIdentity {\n  id         String   @id @default(uuid())\n  userId     String\n  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  provider   String // 'Google', 'GitHub', 'EmailPassword', 'PhoneOTP', etc.\n  providerId String // Provider's unique user ID (or email for email/password)\n  metadata   Json? // Provider-specific data (passwordHash, tokens, profile data, etc.)\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  isDeleted  Boolean? @default(false)\n\n  @@unique([provider, providerId])\n  @@index([userId])\n}\n\nmodel Otp {\n  id         String   @id @default(uuid())\n  identifier String // Phone number or email address\n  type       String // 'phone' or 'email'\n  otp        String // Hashed OTP\n  expiresAt  DateTime\n  attempts   Int      @default(0)\n  verified   Boolean  @default(false)\n  purpose    String? // 'login', 'registration', 'password_reset', '2fa', etc.\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  isDeleted  Boolean? @default(false)\n\n  @@index([identifier, type])\n  @@index([expiresAt])\n  @@index([identifier, type, verified])\n}\n\nmodel Customer {\n  id            Int      @id @default(autoincrement())\n  name          String\n  email         String\n  phone         String?\n  avatar        String?\n  shopifyId     String?\n  ltv           Float    @default(0)\n  avgOrderValue Float    @default(0)\n  totalOrders   Int      @default(0)\n  joinDate      DateTime @default(now())\n  isDeleted     Boolean  @default(false)\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n  orders        Order[]\n}\n\nmodel Order {\n  id             Int      @id @default(autoincrement())\n  customerId     Int\n  customer       Customer @relation(fields: [customerId], references: [id])\n  total          Float\n  status         String\n  date           DateTime @default(now())\n  shopifyOrderId String?\n  items          Json?\n  isDeleted      Boolean  @default(false)\n  createdAt      DateTime @default(now())\n  updatedAt      DateTime @updatedAt\n}\n\nmodel Ticket {\n  id          Int      @id @default(autoincrement())\n  customerId  Int?\n  subject     String\n  status      String\n  priority    String\n  lastMessage String?\n  isDeleted   Boolean  @default(false)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel KBItem {\n  id           Int      @id @default(autoincrement())\n  name         String\n  type         String\n  size         String\n  uploadedDate String\n  storageKey   String?\n  isDeleted    Boolean  @default(false)\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\nmodel AutomationFlow {\n  id            Int       @id @default(autoincrement())\n  name          String\n  status        String\n  dailyTriggers Int       @default(0)\n  successRate   Float     @default(0)\n  lastRun       DateTime?\n  isDeleted     Boolean   @default(false)\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n}\n\nmodel FlowRun {\n  id        Int      @id @default(autoincrement())\n  flowId    Int?\n  status    String\n  name      String\n  timestamp DateTime @default(now())\n  details   String?\n  isDeleted Boolean  @default(false)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "d33e4ccc419fbe5503c2673438c627a2a3d3df8e88c2eac55c56b16f030ab344",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"identities\",\"kind\":\"object\",\"type\":\"UserIdentity\",\"relationName\":\"UserToUserIdentity\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"UserIdentity\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserIdentity\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metadata\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Otp\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"otp\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"attempts\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"verified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"purpose\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Customer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"joinDate\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"shopifyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ltv\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgOrderValue\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"totalOrders\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"orders\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"CustomerToOrder\"},{\"name\":\"tickets\",\"kind\":\"object\",\"type\":\"Ticket\",\"relationName\":\"CustomerToTicket\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customer\",\"kind\":\"object\",\"type\":\"Customer\",\"relationName\":\"CustomerToOrder\"},{\"name\":\"shopifyOrderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"total\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Ticket\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customer\",\"kind\":\"object\",\"type\":\"Customer\",\"relationName\":\"CustomerToTicket\"},{\"name\":\"subject\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"priority\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastMessage\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"AutomationFlow\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dailyTriggers\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"successRate\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"lastRun\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"FlowRun\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"flowId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"flowName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timestamp\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"details\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"KBItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"uploadedDate\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"storageKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"identities\",\"kind\":\"object\",\"type\":\"UserIdentity\",\"relationName\":\"UserToUserIdentity\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"UserIdentity\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserIdentity\"},{\"name\":\"provider\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"providerId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"metadata\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Otp\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identifier\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"otp\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"attempts\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"verified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"purpose\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"}],\"dbName\":null},\"Customer\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"shopifyId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ltv\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"avgOrderValue\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"totalOrders\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"joinDate\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"orders\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"CustomerToOrder\"}],\"dbName\":null},\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customer\",\"kind\":\"object\",\"type\":\"Customer\",\"relationName\":\"CustomerToOrder\"},{\"name\":\"total\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"shopifyOrderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"items\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Ticket\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"customerId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"subject\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"priority\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastMessage\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"KBItem\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"uploadedDate\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"storageKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"AutomationFlow\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dailyTriggers\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"successRate\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"lastRun\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"FlowRun\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"flowId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"timestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"details\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isDeleted\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

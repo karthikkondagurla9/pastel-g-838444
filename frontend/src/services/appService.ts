@@ -1,66 +1,63 @@
-import api from '../lib/api';
-import { Customer, Order, Ticket, AutomationFlow, FlowRun, KBItem, customers as mockCustomers, orders as mockOrders, tickets as mockTickets, automationFlows as mockAutomationFlows, flowRuns as mockFlowRuns, kbItems as mockKbItems } from '../data/mockData';
+import { customers, orders, tickets, automationFlows, flowRuns, kbItems, Customer, Order, Ticket, AutomationFlow, FlowRun, KBItem } from '../data/mockData';
 import { emitter } from '../agentSdk';
 import { AGENT_CONFIGS } from '../agentSdk/agents';
+import api from '../lib/api';
 
 const agentId = AGENT_CONFIGS[0].id;
-const useMock = import.meta.env.VITE_USE_MOCK_DATA === "true";
+const useMockData = import.meta.env.VITE_USE_MOCK_DATA === 'true';
 
 export const crmService = {
   getCustomers: async (): Promise<Customer[]> => {
-    if (useMock) return mockCustomers;
-    const response = await api.get('/customers');
+    if (useMockData) return customers;
+    const response = await api.get('/crm/customers');
     return response.data;
   },
   getCustomerById: async (id: string): Promise<Customer | undefined> => {
-    if (useMock) return mockCustomers.find(c => c.id === id);
-    const response = await api.get(`/customers/${id}`);
+    if (useMockData) return customers.find(c => c.id === id);
+    const response = await api.get(`/crm/customers/${id}`);
     return response.data;
   },
   getCustomerOrders: async (customerId: string): Promise<Order[]> => {
-    if (useMock) return mockOrders.filter(o => o.customerId === customerId);
-    const response = await api.get(`/customers/${customerId}/orders`);
+    if (useMockData) return orders.filter(o => o.customerId === customerId);
+    const response = await api.get(`/crm/customers/${customerId}/orders`);
     return response.data;
   },
   getDashboardStats: async () => {
-    if (useMock) {
+    if (useMockData) {
       return {
         revenue: 45280.50,
-        activeCustomers: mockCustomers.length,
-        totalOrders: mockOrders.length,
-        openTickets: mockTickets.filter(t => t.status === 'open').length,
+        activeCustomers: customers.length,
+        totalOrders: orders.length,
+        openTickets: tickets.filter(t => t.status === 'open').length,
         revenueChange: 12.5,
         customersChange: 8.2,
         ordersChange: -2.4,
         ticketsChange: 5.1,
       };
     }
-    const response = await api.get('/dashboard/stats');
+    const response = await api.get('/crm/dashboard/stats');
     return response.data;
   }
 };
 
 export const supportService = {
   getTickets: async (): Promise<Ticket[]> => {
-    if (useMock) return mockTickets;
-    const response = await api.get('/tickets');
+    if (useMockData) return tickets;
+    const response = await api.get('/support');
     return response.data;
   },
   getTicketById: async (id: string): Promise<Ticket | undefined> => {
     let ticket: Ticket | undefined;
-    if (useMock) {
-      ticket = mockTickets.find(t => t.id === id);
+    if (useMockData) {
+      ticket = tickets.find(t => t.id === id);
     } else {
-      const response = await api.get(`/tickets/${id}`);
+      const response = await api.get(`/support/${id}`);
       ticket = response.data;
     }
 
     if (ticket) {
       // Trigger agent event when ticket is selected
-      const customer = useMock 
-        ? mockCustomers.find(c => c.id === ticket?.customerId)
-        : (await crmService.getCustomerById(ticket.customerId));
-      
+      const customer = customers.find(c => c.id === ticket.customerId);
       await emitter.emit({
         agentId,
         event: 'ticket_selection_change',
@@ -84,18 +81,17 @@ export const supportService = {
 
 export const automationService = {
   getFlows: async (): Promise<AutomationFlow[]> => {
-    if (useMock) return mockAutomationFlows;
-    const response = await api.get('/automations/flows');
+    if (useMockData) return automationFlows;
+    const response = await api.get('/automation/flows');
     return response.data;
   },
   getFlowRuns: async (): Promise<FlowRun[]> => {
-    if (useMock) return mockFlowRuns;
-    const response = await api.get('/automations/runs');
+    if (useMockData) return flowRuns;
+    const response = await api.get('/automation/runs');
     return response.data;
   },
   handleFailure: async (runId: string) => {
-    const runs = await automationService.getFlowRuns();
-    const run = runs.find(r => r.id === runId);
+    const run = flowRuns.find(r => r.id === runId);
     if (run && run.status === 'failed') {
       await emitter.emit({
         agentId,
@@ -114,36 +110,9 @@ export const automationService = {
 
 export const kbService = {
   getKBItems: async (): Promise<KBItem[]> => {
-    if (useMock) return mockKbItems;
-    const response = await api.get('/kb/items');
+    if (useMockData) return kbItems;
+    const response = await api.get('/kb');
     return response.data;
-  },
-  uploadKBItem: async (file: File): Promise<KBItem> => {
-    if (useMock) {
-      const newItem: KBItem = {
-        id: `kb-${Date.now()}`,
-        name: file.name,
-        type: file.name.split('.').pop()?.toUpperCase() || 'UNKNOWN',
-        size: `${(file.size / 1024).toFixed(1)} KB`,
-        uploadedDate: new Date().toISOString().split('T')[0]
-      };
-      mockKbItems.push(newItem);
-      return newItem;
-    }
-    const formData = new FormData();
-    formData.append('file', file);
-    const response = await api.post('/kb/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    });
-    return response.data;
-  },
-  deleteKBItem: async (id: string): Promise<void> => {
-    if (useMock) {
-      const index = mockKbItems.findIndex(item => item.id === id);
-      if (index !== -1) mockKbItems.splice(index, 1);
-      return;
-    }
-    await api.delete(`/kb/items/${id}`);
   },
   queryKB: async (query: string) => {
     return await emitter.emit({

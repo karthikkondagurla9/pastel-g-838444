@@ -3,11 +3,11 @@ import ApiError from "./utils/ApiError.js";
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { secureHeaders } from 'hono/secure-headers';
-// import authRoutes from './routes/auth.routes.ts';
+import authRoutes from "./routes/auth.routes.js";
 import crmRoutes from "./routes/crm.routes.js";
 import supportRoutes from "./routes/support.routes.js";
-import automationRoutes from "./routes/automation.routes.js";
 import kbRoutes from "./routes/kb.routes.js";
+import automationRoutes from "./routes/automation.routes.js";
 const app = new Hono();
 // set security HTTP headers only in production
 if (process.env.NODE_ENV === 'production')
@@ -28,10 +28,11 @@ app.get('/health', c => {
     return c.text('OK');
 });
 // Mount routes
-app.route('/', crmRoutes);
-app.route('/tickets', supportRoutes);
-app.route('/automations', automationRoutes);
+app.route('/auth', authRoutes);
+app.route('/crm', crmRoutes);
+app.route('/support', supportRoutes);
 app.route('/kb', kbRoutes);
+app.route('/automation', automationRoutes);
 // send back a 404 error for any unknown api request
 app.notFound(() => {
     throw new ApiError(404, 'Not found');

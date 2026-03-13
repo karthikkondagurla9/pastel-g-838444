@@ -160,11 +160,11 @@ exports.Prisma.CustomerScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   avatar: 'avatar',
-  joinDate: 'joinDate',
   shopifyId: 'shopifyId',
   ltv: 'ltv',
   avgOrderValue: 'avgOrderValue',
   totalOrders: 'totalOrders',
+  joinDate: 'joinDate',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -173,11 +173,11 @@ exports.Prisma.CustomerScalarFieldEnum = {
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   customerId: 'customerId',
+  total: 'total',
+  status: 'status',
+  date: 'date',
   shopifyOrderId: 'shopifyOrderId',
   items: 'items',
-  total: 'total',
-  date: 'date',
-  status: 'status',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -195,31 +195,6 @@ exports.Prisma.TicketScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.AutomationFlowScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  status: 'status',
-  dailyTriggers: 'dailyTriggers',
-  successRate: 'successRate',
-  lastRun: 'lastRun',
-  isDeleted: 'isDeleted',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.FlowRunScalarFieldEnum = {
-  id: 'id',
-  flowId: 'flowId',
-  flowName: 'flowName',
-  status: 'status',
-  timestamp: 'timestamp',
-  details: 'details',
-  isDeleted: 'isDeleted',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.KBItemScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -232,6 +207,30 @@ exports.Prisma.KBItemScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AutomationFlowScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  status: 'status',
+  dailyTriggers: 'dailyTriggers',
+  successRate: 'successRate',
+  lastRun: 'lastRun',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FlowRunScalarFieldEnum = {
+  id: 'id',
+  flowId: 'flowId',
+  status: 'status',
+  name: 'name',
+  timestamp: 'timestamp',
+  details: 'details',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -239,10 +238,6 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
-};
-
-exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -270,9 +265,9 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   Order: 'Order',
   Ticket: 'Ticket',
+  KBItem: 'KBItem',
   AutomationFlow: 'AutomationFlow',
-  FlowRun: 'FlowRun',
-  KBItem: 'KBItem'
+  FlowRun: 'FlowRun'
 };
 
 /**

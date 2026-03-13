@@ -44,6 +44,11 @@ export type Order = $Result.DefaultSelection<Prisma.$OrderPayload>
  */
 export type Ticket = $Result.DefaultSelection<Prisma.$TicketPayload>
 /**
+ * Model KBItem
+ * 
+ */
+export type KBItem = $Result.DefaultSelection<Prisma.$KBItemPayload>
+/**
  * Model AutomationFlow
  * 
  */
@@ -53,11 +58,6 @@ export type AutomationFlow = $Result.DefaultSelection<Prisma.$AutomationFlowPayl
  * 
  */
 export type FlowRun = $Result.DefaultSelection<Prisma.$FlowRunPayload>
-/**
- * Model KBItem
- * 
- */
-export type KBItem = $Result.DefaultSelection<Prisma.$KBItemPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -238,6 +238,16 @@ export class PrismaClient<
   get ticket(): Prisma.TicketDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.kBItem`: Exposes CRUD operations for the **KBItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KBItems
+    * const kBItems = await prisma.kBItem.findMany()
+    * ```
+    */
+  get kBItem(): Prisma.KBItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.automationFlow`: Exposes CRUD operations for the **AutomationFlow** model.
     * Example usage:
     * ```ts
@@ -256,16 +266,6 @@ export class PrismaClient<
     * ```
     */
   get flowRun(): Prisma.FlowRunDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.kBItem`: Exposes CRUD operations for the **KBItem** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more KBItems
-    * const kBItems = await prisma.kBItem.findMany()
-    * ```
-    */
-  get kBItem(): Prisma.KBItemDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -713,9 +713,9 @@ export namespace Prisma {
     Customer: 'Customer',
     Order: 'Order',
     Ticket: 'Ticket',
+    KBItem: 'KBItem',
     AutomationFlow: 'AutomationFlow',
-    FlowRun: 'FlowRun',
-    KBItem: 'KBItem'
+    FlowRun: 'FlowRun'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -734,7 +734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userIdentity" | "otp" | "customer" | "order" | "ticket" | "automationFlow" | "flowRun" | "kBItem"
+      modelProps: "user" | "userIdentity" | "otp" | "customer" | "order" | "ticket" | "kBItem" | "automationFlow" | "flowRun"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1182,6 +1182,80 @@ export namespace Prisma {
           }
         }
       }
+      KBItem: {
+        payload: Prisma.$KBItemPayload<ExtArgs>
+        fields: Prisma.KBItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KBItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KBItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
+          }
+          findFirst: {
+            args: Prisma.KBItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KBItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
+          }
+          findMany: {
+            args: Prisma.KBItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>[]
+          }
+          create: {
+            args: Prisma.KBItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
+          }
+          createMany: {
+            args: Prisma.KBItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KBItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>[]
+          }
+          delete: {
+            args: Prisma.KBItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
+          }
+          update: {
+            args: Prisma.KBItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.KBItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KBItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.KBItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.KBItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
+          }
+          aggregate: {
+            args: Prisma.KBItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKBItem>
+          }
+          groupBy: {
+            args: Prisma.KBItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KBItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KBItemCountArgs<ExtArgs>
+            result: $Utils.Optional<KBItemCountAggregateOutputType> | number
+          }
+        }
+      }
       AutomationFlow: {
         payload: Prisma.$AutomationFlowPayload<ExtArgs>
         fields: Prisma.AutomationFlowFieldRefs
@@ -1330,80 +1404,6 @@ export namespace Prisma {
           }
         }
       }
-      KBItem: {
-        payload: Prisma.$KBItemPayload<ExtArgs>
-        fields: Prisma.KBItemFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.KBItemFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.KBItemFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
-          }
-          findFirst: {
-            args: Prisma.KBItemFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.KBItemFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
-          }
-          findMany: {
-            args: Prisma.KBItemFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>[]
-          }
-          create: {
-            args: Prisma.KBItemCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
-          }
-          createMany: {
-            args: Prisma.KBItemCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.KBItemCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>[]
-          }
-          delete: {
-            args: Prisma.KBItemDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
-          }
-          update: {
-            args: Prisma.KBItemUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
-          }
-          deleteMany: {
-            args: Prisma.KBItemDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.KBItemUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.KBItemUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>[]
-          }
-          upsert: {
-            args: Prisma.KBItemUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$KBItemPayload>
-          }
-          aggregate: {
-            args: Prisma.KBItemAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateKBItem>
-          }
-          groupBy: {
-            args: Prisma.KBItemGroupByArgs<ExtArgs>
-            result: $Utils.Optional<KBItemGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.KBItemCountArgs<ExtArgs>
-            result: $Utils.Optional<KBItemCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1506,9 +1506,9 @@ export namespace Prisma {
     customer?: CustomerOmit
     order?: OrderOmit
     ticket?: TicketOmit
+    kBItem?: KBItemOmit
     automationFlow?: AutomationFlowOmit
     flowRun?: FlowRunOmit
-    kBItem?: KBItemOmit
   }
 
   /* Types for Logging */
@@ -1621,12 +1621,10 @@ export namespace Prisma {
 
   export type CustomerCountOutputType = {
     orders: number
-    tickets: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orders?: boolean | CustomerCountOutputTypeCountOrdersArgs
-    tickets?: boolean | CustomerCountOutputTypeCountTicketsArgs
   }
 
   // Custom InputTypes
@@ -1645,13 +1643,6 @@ export namespace Prisma {
    */
   export type CustomerCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderWhereInput
-  }
-
-  /**
-   * CustomerCountOutputType without action
-   */
-  export type CustomerCountOutputTypeCountTicketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TicketWhereInput
   }
 
 
@@ -4961,11 +4952,11 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     avatar: string | null
-    joinDate: string | null
     shopifyId: string | null
     ltv: number | null
     avgOrderValue: number | null
     totalOrders: number | null
+    joinDate: Date | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4977,11 +4968,11 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     avatar: string | null
-    joinDate: string | null
     shopifyId: string | null
     ltv: number | null
     avgOrderValue: number | null
     totalOrders: number | null
+    joinDate: Date | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4993,11 +4984,11 @@ export namespace Prisma {
     email: number
     phone: number
     avatar: number
-    joinDate: number
     shopifyId: number
     ltv: number
     avgOrderValue: number
     totalOrders: number
+    joinDate: number
     isDeleted: number
     createdAt: number
     updatedAt: number
@@ -5025,11 +5016,11 @@ export namespace Prisma {
     email?: true
     phone?: true
     avatar?: true
-    joinDate?: true
     shopifyId?: true
     ltv?: true
     avgOrderValue?: true
     totalOrders?: true
+    joinDate?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -5041,11 +5032,11 @@ export namespace Prisma {
     email?: true
     phone?: true
     avatar?: true
-    joinDate?: true
     shopifyId?: true
     ltv?: true
     avgOrderValue?: true
     totalOrders?: true
+    joinDate?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -5057,11 +5048,11 @@ export namespace Prisma {
     email?: true
     phone?: true
     avatar?: true
-    joinDate?: true
     shopifyId?: true
     ltv?: true
     avgOrderValue?: true
     totalOrders?: true
+    joinDate?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -5158,13 +5149,13 @@ export namespace Prisma {
     id: number
     name: string
     email: string
-    phone: string
-    avatar: string
-    joinDate: string
+    phone: string | null
+    avatar: string | null
     shopifyId: string | null
     ltv: number
     avgOrderValue: number
     totalOrders: number
+    joinDate: Date
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
@@ -5195,16 +5186,15 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     avatar?: boolean
-    joinDate?: boolean
     shopifyId?: boolean
     ltv?: boolean
     avgOrderValue?: boolean
     totalOrders?: boolean
+    joinDate?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     orders?: boolean | Customer$ordersArgs<ExtArgs>
-    tickets?: boolean | Customer$ticketsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
 
@@ -5214,11 +5204,11 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     avatar?: boolean
-    joinDate?: boolean
     shopifyId?: boolean
     ltv?: boolean
     avgOrderValue?: boolean
     totalOrders?: boolean
+    joinDate?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5230,11 +5220,11 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     avatar?: boolean
-    joinDate?: boolean
     shopifyId?: boolean
     ltv?: boolean
     avgOrderValue?: boolean
     totalOrders?: boolean
+    joinDate?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5246,20 +5236,19 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     avatar?: boolean
-    joinDate?: boolean
     shopifyId?: boolean
     ltv?: boolean
     avgOrderValue?: boolean
     totalOrders?: boolean
+    joinDate?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "avatar" | "joinDate" | "shopifyId" | "ltv" | "avgOrderValue" | "totalOrders" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
+  export type CustomerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "phone" | "avatar" | "shopifyId" | "ltv" | "avgOrderValue" | "totalOrders" | "joinDate" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["customer"]>
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orders?: boolean | Customer$ordersArgs<ExtArgs>
-    tickets?: boolean | Customer$ticketsArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CustomerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5269,19 +5258,18 @@ export namespace Prisma {
     name: "Customer"
     objects: {
       orders: Prisma.$OrderPayload<ExtArgs>[]
-      tickets: Prisma.$TicketPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       email: string
-      phone: string
-      avatar: string
-      joinDate: string
+      phone: string | null
+      avatar: string | null
       shopifyId: string | null
       ltv: number
       avgOrderValue: number
       totalOrders: number
+      joinDate: Date
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
@@ -5680,7 +5668,6 @@ export namespace Prisma {
   export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     orders<T extends Customer$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    tickets<T extends Customer$ticketsArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ticketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5715,11 +5702,11 @@ export namespace Prisma {
     readonly email: FieldRef<"Customer", 'String'>
     readonly phone: FieldRef<"Customer", 'String'>
     readonly avatar: FieldRef<"Customer", 'String'>
-    readonly joinDate: FieldRef<"Customer", 'String'>
     readonly shopifyId: FieldRef<"Customer", 'String'>
     readonly ltv: FieldRef<"Customer", 'Float'>
     readonly avgOrderValue: FieldRef<"Customer", 'Float'>
     readonly totalOrders: FieldRef<"Customer", 'Int'>
+    readonly joinDate: FieldRef<"Customer", 'DateTime'>
     readonly isDeleted: FieldRef<"Customer", 'Boolean'>
     readonly createdAt: FieldRef<"Customer", 'DateTime'>
     readonly updatedAt: FieldRef<"Customer", 'DateTime'>
@@ -6135,30 +6122,6 @@ export namespace Prisma {
   }
 
   /**
-   * Customer.tickets
-   */
-  export type Customer$ticketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Ticket
-     */
-    select?: TicketSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Ticket
-     */
-    omit?: TicketOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-    where?: TicketWhereInput
-    orderBy?: TicketOrderByWithRelationInput | TicketOrderByWithRelationInput[]
-    cursor?: TicketWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TicketScalarFieldEnum | TicketScalarFieldEnum[]
-  }
-
-  /**
    * Customer without action
    */
   export type CustomerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6204,10 +6167,10 @@ export namespace Prisma {
   export type OrderMinAggregateOutputType = {
     id: number | null
     customerId: number | null
-    shopifyOrderId: string | null
     total: number | null
-    date: string | null
     status: string | null
+    date: Date | null
+    shopifyOrderId: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6216,10 +6179,10 @@ export namespace Prisma {
   export type OrderMaxAggregateOutputType = {
     id: number | null
     customerId: number | null
-    shopifyOrderId: string | null
     total: number | null
-    date: string | null
     status: string | null
+    date: Date | null
+    shopifyOrderId: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6228,11 +6191,11 @@ export namespace Prisma {
   export type OrderCountAggregateOutputType = {
     id: number
     customerId: number
+    total: number
+    status: number
+    date: number
     shopifyOrderId: number
     items: number
-    total: number
-    date: number
-    status: number
     isDeleted: number
     createdAt: number
     updatedAt: number
@@ -6255,10 +6218,10 @@ export namespace Prisma {
   export type OrderMinAggregateInputType = {
     id?: true
     customerId?: true
-    shopifyOrderId?: true
     total?: true
-    date?: true
     status?: true
+    date?: true
+    shopifyOrderId?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -6267,10 +6230,10 @@ export namespace Prisma {
   export type OrderMaxAggregateInputType = {
     id?: true
     customerId?: true
-    shopifyOrderId?: true
     total?: true
-    date?: true
     status?: true
+    date?: true
+    shopifyOrderId?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -6279,11 +6242,11 @@ export namespace Prisma {
   export type OrderCountAggregateInputType = {
     id?: true
     customerId?: true
+    total?: true
+    status?: true
+    date?: true
     shopifyOrderId?: true
     items?: true
-    total?: true
-    date?: true
-    status?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -6379,11 +6342,11 @@ export namespace Prisma {
   export type OrderGroupByOutputType = {
     id: number
     customerId: number
-    shopifyOrderId: string | null
-    items: JsonValue
     total: number
-    date: string
     status: string
+    date: Date
+    shopifyOrderId: string | null
+    items: JsonValue | null
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
@@ -6411,11 +6374,11 @@ export namespace Prisma {
   export type OrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     customerId?: boolean
+    total?: boolean
+    status?: boolean
+    date?: boolean
     shopifyOrderId?: boolean
     items?: boolean
-    total?: boolean
-    date?: boolean
-    status?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6425,11 +6388,11 @@ export namespace Prisma {
   export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     customerId?: boolean
+    total?: boolean
+    status?: boolean
+    date?: boolean
     shopifyOrderId?: boolean
     items?: boolean
-    total?: boolean
-    date?: boolean
-    status?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6439,11 +6402,11 @@ export namespace Prisma {
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     customerId?: boolean
+    total?: boolean
+    status?: boolean
+    date?: boolean
     shopifyOrderId?: boolean
     items?: boolean
-    total?: boolean
-    date?: boolean
-    status?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6453,17 +6416,17 @@ export namespace Prisma {
   export type OrderSelectScalar = {
     id?: boolean
     customerId?: boolean
+    total?: boolean
+    status?: boolean
+    date?: boolean
     shopifyOrderId?: boolean
     items?: boolean
-    total?: boolean
-    date?: boolean
-    status?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "shopifyOrderId" | "items" | "total" | "date" | "status" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "total" | "status" | "date" | "shopifyOrderId" | "items" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }
@@ -6482,11 +6445,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       customerId: number
-      shopifyOrderId: string | null
-      items: Prisma.JsonValue
       total: number
-      date: string
       status: string
+      date: Date
+      shopifyOrderId: string | null
+      items: Prisma.JsonValue | null
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
@@ -6916,11 +6879,11 @@ export namespace Prisma {
   interface OrderFieldRefs {
     readonly id: FieldRef<"Order", 'Int'>
     readonly customerId: FieldRef<"Order", 'Int'>
+    readonly total: FieldRef<"Order", 'Float'>
+    readonly status: FieldRef<"Order", 'String'>
+    readonly date: FieldRef<"Order", 'DateTime'>
     readonly shopifyOrderId: FieldRef<"Order", 'String'>
     readonly items: FieldRef<"Order", 'Json'>
-    readonly total: FieldRef<"Order", 'Float'>
-    readonly date: FieldRef<"Order", 'String'>
-    readonly status: FieldRef<"Order", 'String'>
     readonly isDeleted: FieldRef<"Order", 'Boolean'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
     readonly updatedAt: FieldRef<"Order", 'DateTime'>
@@ -7533,11 +7496,11 @@ export namespace Prisma {
 
   export type TicketGroupByOutputType = {
     id: number
-    customerId: number
+    customerId: number | null
     subject: string
     status: string
     priority: string
-    lastMessage: string
+    lastMessage: string | null
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
@@ -7572,7 +7535,6 @@ export namespace Prisma {
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticket"]>
 
   export type TicketSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7585,7 +7547,6 @@ export namespace Prisma {
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticket"]>
 
   export type TicketSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7598,7 +7559,6 @@ export namespace Prisma {
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ticket"]>
 
   export type TicketSelectScalar = {
@@ -7614,28 +7574,17 @@ export namespace Prisma {
   }
 
   export type TicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "customerId" | "subject" | "status" | "priority" | "lastMessage" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["ticket"]>
-  export type TicketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-  }
-  export type TicketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-  }
-  export type TicketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    customer?: boolean | CustomerDefaultArgs<ExtArgs>
-  }
 
   export type $TicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Ticket"
-    objects: {
-      customer: Prisma.$CustomerPayload<ExtArgs>
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      customerId: number
+      customerId: number | null
       subject: string
       status: string
       priority: string
-      lastMessage: string
+      lastMessage: string | null
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
@@ -8033,7 +7982,6 @@ export namespace Prisma {
    */
   export interface Prisma__TicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    customer<T extends CustomerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CustomerDefaultArgs<ExtArgs>>): Prisma__CustomerClient<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8089,10 +8037,6 @@ export namespace Prisma {
      */
     omit?: TicketOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-    /**
      * Filter, which Ticket to fetch.
      */
     where: TicketWhereUniqueInput
@@ -8111,10 +8055,6 @@ export namespace Prisma {
      */
     omit?: TicketOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-    /**
      * Filter, which Ticket to fetch.
      */
     where: TicketWhereUniqueInput
@@ -8132,10 +8072,6 @@ export namespace Prisma {
      * Omit specific fields from the Ticket
      */
     omit?: TicketOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
     /**
      * Filter, which Ticket to fetch.
      */
@@ -8185,10 +8121,6 @@ export namespace Prisma {
      */
     omit?: TicketOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-    /**
      * Filter, which Ticket to fetch.
      */
     where?: TicketWhereInput
@@ -8237,10 +8169,6 @@ export namespace Prisma {
      */
     omit?: TicketOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-    /**
      * Filter, which Tickets to fetch.
      */
     where?: TicketWhereInput
@@ -8284,10 +8212,6 @@ export namespace Prisma {
      */
     omit?: TicketOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-    /**
      * The data needed to create a Ticket.
      */
     data: XOR<TicketCreateInput, TicketUncheckedCreateInput>
@@ -8321,10 +8245,6 @@ export namespace Prisma {
      */
     data: TicketCreateManyInput | TicketCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8339,10 +8259,6 @@ export namespace Prisma {
      * Omit specific fields from the Ticket
      */
     omit?: TicketOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
     /**
      * The data needed to update a Ticket.
      */
@@ -8395,10 +8311,6 @@ export namespace Prisma {
      * Limit how many Tickets to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8413,10 +8325,6 @@ export namespace Prisma {
      * Omit specific fields from the Ticket
      */
     omit?: TicketOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
     /**
      * The filter to search for the Ticket to update in case it exists.
      */
@@ -8443,10 +8351,6 @@ export namespace Prisma {
      * Omit specific fields from the Ticket
      */
     omit?: TicketOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
     /**
      * Filter which Ticket to delete.
      */
@@ -8479,2197 +8383,6 @@ export namespace Prisma {
      * Omit specific fields from the Ticket
      */
     omit?: TicketOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TicketInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model AutomationFlow
-   */
-
-  export type AggregateAutomationFlow = {
-    _count: AutomationFlowCountAggregateOutputType | null
-    _avg: AutomationFlowAvgAggregateOutputType | null
-    _sum: AutomationFlowSumAggregateOutputType | null
-    _min: AutomationFlowMinAggregateOutputType | null
-    _max: AutomationFlowMaxAggregateOutputType | null
-  }
-
-  export type AutomationFlowAvgAggregateOutputType = {
-    id: number | null
-    dailyTriggers: number | null
-    successRate: number | null
-  }
-
-  export type AutomationFlowSumAggregateOutputType = {
-    id: number | null
-    dailyTriggers: number | null
-    successRate: number | null
-  }
-
-  export type AutomationFlowMinAggregateOutputType = {
-    id: number | null
-    name: string | null
-    description: string | null
-    status: string | null
-    dailyTriggers: number | null
-    successRate: number | null
-    lastRun: string | null
-    isDeleted: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AutomationFlowMaxAggregateOutputType = {
-    id: number | null
-    name: string | null
-    description: string | null
-    status: string | null
-    dailyTriggers: number | null
-    successRate: number | null
-    lastRun: string | null
-    isDeleted: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AutomationFlowCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    status: number
-    dailyTriggers: number
-    successRate: number
-    lastRun: number
-    isDeleted: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type AutomationFlowAvgAggregateInputType = {
-    id?: true
-    dailyTriggers?: true
-    successRate?: true
-  }
-
-  export type AutomationFlowSumAggregateInputType = {
-    id?: true
-    dailyTriggers?: true
-    successRate?: true
-  }
-
-  export type AutomationFlowMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    status?: true
-    dailyTriggers?: true
-    successRate?: true
-    lastRun?: true
-    isDeleted?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AutomationFlowMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    status?: true
-    dailyTriggers?: true
-    successRate?: true
-    lastRun?: true
-    isDeleted?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AutomationFlowCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    status?: true
-    dailyTriggers?: true
-    successRate?: true
-    lastRun?: true
-    isDeleted?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type AutomationFlowAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AutomationFlow to aggregate.
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutomationFlows to fetch.
-     */
-    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AutomationFlowWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutomationFlows from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutomationFlows.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AutomationFlows
-    **/
-    _count?: true | AutomationFlowCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AutomationFlowAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AutomationFlowSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AutomationFlowMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AutomationFlowMaxAggregateInputType
-  }
-
-  export type GetAutomationFlowAggregateType<T extends AutomationFlowAggregateArgs> = {
-        [P in keyof T & keyof AggregateAutomationFlow]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAutomationFlow[P]>
-      : GetScalarType<T[P], AggregateAutomationFlow[P]>
-  }
-
-
-
-
-  export type AutomationFlowGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AutomationFlowWhereInput
-    orderBy?: AutomationFlowOrderByWithAggregationInput | AutomationFlowOrderByWithAggregationInput[]
-    by: AutomationFlowScalarFieldEnum[] | AutomationFlowScalarFieldEnum
-    having?: AutomationFlowScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AutomationFlowCountAggregateInputType | true
-    _avg?: AutomationFlowAvgAggregateInputType
-    _sum?: AutomationFlowSumAggregateInputType
-    _min?: AutomationFlowMinAggregateInputType
-    _max?: AutomationFlowMaxAggregateInputType
-  }
-
-  export type AutomationFlowGroupByOutputType = {
-    id: number
-    name: string
-    description: string
-    status: string
-    dailyTriggers: number
-    successRate: number
-    lastRun: string
-    isDeleted: boolean
-    createdAt: Date
-    updatedAt: Date
-    _count: AutomationFlowCountAggregateOutputType | null
-    _avg: AutomationFlowAvgAggregateOutputType | null
-    _sum: AutomationFlowSumAggregateOutputType | null
-    _min: AutomationFlowMinAggregateOutputType | null
-    _max: AutomationFlowMaxAggregateOutputType | null
-  }
-
-  type GetAutomationFlowGroupByPayload<T extends AutomationFlowGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AutomationFlowGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AutomationFlowGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AutomationFlowGroupByOutputType[P]>
-            : GetScalarType<T[P], AutomationFlowGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AutomationFlowSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    status?: boolean
-    dailyTriggers?: boolean
-    successRate?: boolean
-    lastRun?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["automationFlow"]>
-
-  export type AutomationFlowSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    status?: boolean
-    dailyTriggers?: boolean
-    successRate?: boolean
-    lastRun?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["automationFlow"]>
-
-  export type AutomationFlowSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    status?: boolean
-    dailyTriggers?: boolean
-    successRate?: boolean
-    lastRun?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["automationFlow"]>
-
-  export type AutomationFlowSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    status?: boolean
-    dailyTriggers?: boolean
-    successRate?: boolean
-    lastRun?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type AutomationFlowOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "status" | "dailyTriggers" | "successRate" | "lastRun" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["automationFlow"]>
-
-  export type $AutomationFlowPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AutomationFlow"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      name: string
-      description: string
-      status: string
-      dailyTriggers: number
-      successRate: number
-      lastRun: string
-      isDeleted: boolean
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["automationFlow"]>
-    composites: {}
-  }
-
-  type AutomationFlowGetPayload<S extends boolean | null | undefined | AutomationFlowDefaultArgs> = $Result.GetResult<Prisma.$AutomationFlowPayload, S>
-
-  type AutomationFlowCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AutomationFlowFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AutomationFlowCountAggregateInputType | true
-    }
-
-  export interface AutomationFlowDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AutomationFlow'], meta: { name: 'AutomationFlow' } }
-    /**
-     * Find zero or one AutomationFlow that matches the filter.
-     * @param {AutomationFlowFindUniqueArgs} args - Arguments to find a AutomationFlow
-     * @example
-     * // Get one AutomationFlow
-     * const automationFlow = await prisma.automationFlow.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AutomationFlowFindUniqueArgs>(args: SelectSubset<T, AutomationFlowFindUniqueArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one AutomationFlow that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AutomationFlowFindUniqueOrThrowArgs} args - Arguments to find a AutomationFlow
-     * @example
-     * // Get one AutomationFlow
-     * const automationFlow = await prisma.automationFlow.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AutomationFlowFindUniqueOrThrowArgs>(args: SelectSubset<T, AutomationFlowFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AutomationFlow that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowFindFirstArgs} args - Arguments to find a AutomationFlow
-     * @example
-     * // Get one AutomationFlow
-     * const automationFlow = await prisma.automationFlow.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AutomationFlowFindFirstArgs>(args?: SelectSubset<T, AutomationFlowFindFirstArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AutomationFlow that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowFindFirstOrThrowArgs} args - Arguments to find a AutomationFlow
-     * @example
-     * // Get one AutomationFlow
-     * const automationFlow = await prisma.automationFlow.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AutomationFlowFindFirstOrThrowArgs>(args?: SelectSubset<T, AutomationFlowFindFirstOrThrowArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more AutomationFlows that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AutomationFlows
-     * const automationFlows = await prisma.automationFlow.findMany()
-     * 
-     * // Get first 10 AutomationFlows
-     * const automationFlows = await prisma.automationFlow.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const automationFlowWithIdOnly = await prisma.automationFlow.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AutomationFlowFindManyArgs>(args?: SelectSubset<T, AutomationFlowFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a AutomationFlow.
-     * @param {AutomationFlowCreateArgs} args - Arguments to create a AutomationFlow.
-     * @example
-     * // Create one AutomationFlow
-     * const AutomationFlow = await prisma.automationFlow.create({
-     *   data: {
-     *     // ... data to create a AutomationFlow
-     *   }
-     * })
-     * 
-     */
-    create<T extends AutomationFlowCreateArgs>(args: SelectSubset<T, AutomationFlowCreateArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many AutomationFlows.
-     * @param {AutomationFlowCreateManyArgs} args - Arguments to create many AutomationFlows.
-     * @example
-     * // Create many AutomationFlows
-     * const automationFlow = await prisma.automationFlow.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AutomationFlowCreateManyArgs>(args?: SelectSubset<T, AutomationFlowCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many AutomationFlows and returns the data saved in the database.
-     * @param {AutomationFlowCreateManyAndReturnArgs} args - Arguments to create many AutomationFlows.
-     * @example
-     * // Create many AutomationFlows
-     * const automationFlow = await prisma.automationFlow.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many AutomationFlows and only return the `id`
-     * const automationFlowWithIdOnly = await prisma.automationFlow.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AutomationFlowCreateManyAndReturnArgs>(args?: SelectSubset<T, AutomationFlowCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a AutomationFlow.
-     * @param {AutomationFlowDeleteArgs} args - Arguments to delete one AutomationFlow.
-     * @example
-     * // Delete one AutomationFlow
-     * const AutomationFlow = await prisma.automationFlow.delete({
-     *   where: {
-     *     // ... filter to delete one AutomationFlow
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AutomationFlowDeleteArgs>(args: SelectSubset<T, AutomationFlowDeleteArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one AutomationFlow.
-     * @param {AutomationFlowUpdateArgs} args - Arguments to update one AutomationFlow.
-     * @example
-     * // Update one AutomationFlow
-     * const automationFlow = await prisma.automationFlow.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AutomationFlowUpdateArgs>(args: SelectSubset<T, AutomationFlowUpdateArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more AutomationFlows.
-     * @param {AutomationFlowDeleteManyArgs} args - Arguments to filter AutomationFlows to delete.
-     * @example
-     * // Delete a few AutomationFlows
-     * const { count } = await prisma.automationFlow.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AutomationFlowDeleteManyArgs>(args?: SelectSubset<T, AutomationFlowDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AutomationFlows.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AutomationFlows
-     * const automationFlow = await prisma.automationFlow.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AutomationFlowUpdateManyArgs>(args: SelectSubset<T, AutomationFlowUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AutomationFlows and returns the data updated in the database.
-     * @param {AutomationFlowUpdateManyAndReturnArgs} args - Arguments to update many AutomationFlows.
-     * @example
-     * // Update many AutomationFlows
-     * const automationFlow = await prisma.automationFlow.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more AutomationFlows and only return the `id`
-     * const automationFlowWithIdOnly = await prisma.automationFlow.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AutomationFlowUpdateManyAndReturnArgs>(args: SelectSubset<T, AutomationFlowUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one AutomationFlow.
-     * @param {AutomationFlowUpsertArgs} args - Arguments to update or create a AutomationFlow.
-     * @example
-     * // Update or create a AutomationFlow
-     * const automationFlow = await prisma.automationFlow.upsert({
-     *   create: {
-     *     // ... data to create a AutomationFlow
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AutomationFlow we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AutomationFlowUpsertArgs>(args: SelectSubset<T, AutomationFlowUpsertArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of AutomationFlows.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowCountArgs} args - Arguments to filter AutomationFlows to count.
-     * @example
-     * // Count the number of AutomationFlows
-     * const count = await prisma.automationFlow.count({
-     *   where: {
-     *     // ... the filter for the AutomationFlows we want to count
-     *   }
-     * })
-    **/
-    count<T extends AutomationFlowCountArgs>(
-      args?: Subset<T, AutomationFlowCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AutomationFlowCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AutomationFlow.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AutomationFlowAggregateArgs>(args: Subset<T, AutomationFlowAggregateArgs>): Prisma.PrismaPromise<GetAutomationFlowAggregateType<T>>
-
-    /**
-     * Group by AutomationFlow.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AutomationFlowGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AutomationFlowGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AutomationFlowGroupByArgs['orderBy'] }
-        : { orderBy?: AutomationFlowGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AutomationFlowGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAutomationFlowGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AutomationFlow model
-   */
-  readonly fields: AutomationFlowFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AutomationFlow.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AutomationFlowClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the AutomationFlow model
-   */
-  interface AutomationFlowFieldRefs {
-    readonly id: FieldRef<"AutomationFlow", 'Int'>
-    readonly name: FieldRef<"AutomationFlow", 'String'>
-    readonly description: FieldRef<"AutomationFlow", 'String'>
-    readonly status: FieldRef<"AutomationFlow", 'String'>
-    readonly dailyTriggers: FieldRef<"AutomationFlow", 'Int'>
-    readonly successRate: FieldRef<"AutomationFlow", 'Float'>
-    readonly lastRun: FieldRef<"AutomationFlow", 'String'>
-    readonly isDeleted: FieldRef<"AutomationFlow", 'Boolean'>
-    readonly createdAt: FieldRef<"AutomationFlow", 'DateTime'>
-    readonly updatedAt: FieldRef<"AutomationFlow", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * AutomationFlow findUnique
-   */
-  export type AutomationFlowFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * Filter, which AutomationFlow to fetch.
-     */
-    where: AutomationFlowWhereUniqueInput
-  }
-
-  /**
-   * AutomationFlow findUniqueOrThrow
-   */
-  export type AutomationFlowFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * Filter, which AutomationFlow to fetch.
-     */
-    where: AutomationFlowWhereUniqueInput
-  }
-
-  /**
-   * AutomationFlow findFirst
-   */
-  export type AutomationFlowFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * Filter, which AutomationFlow to fetch.
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutomationFlows to fetch.
-     */
-    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AutomationFlows.
-     */
-    cursor?: AutomationFlowWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutomationFlows from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutomationFlows.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AutomationFlows.
-     */
-    distinct?: AutomationFlowScalarFieldEnum | AutomationFlowScalarFieldEnum[]
-  }
-
-  /**
-   * AutomationFlow findFirstOrThrow
-   */
-  export type AutomationFlowFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * Filter, which AutomationFlow to fetch.
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutomationFlows to fetch.
-     */
-    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AutomationFlows.
-     */
-    cursor?: AutomationFlowWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutomationFlows from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutomationFlows.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AutomationFlows.
-     */
-    distinct?: AutomationFlowScalarFieldEnum | AutomationFlowScalarFieldEnum[]
-  }
-
-  /**
-   * AutomationFlow findMany
-   */
-  export type AutomationFlowFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * Filter, which AutomationFlows to fetch.
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AutomationFlows to fetch.
-     */
-    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AutomationFlows.
-     */
-    cursor?: AutomationFlowWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AutomationFlows from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AutomationFlows.
-     */
-    skip?: number
-    distinct?: AutomationFlowScalarFieldEnum | AutomationFlowScalarFieldEnum[]
-  }
-
-  /**
-   * AutomationFlow create
-   */
-  export type AutomationFlowCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * The data needed to create a AutomationFlow.
-     */
-    data: XOR<AutomationFlowCreateInput, AutomationFlowUncheckedCreateInput>
-  }
-
-  /**
-   * AutomationFlow createMany
-   */
-  export type AutomationFlowCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AutomationFlows.
-     */
-    data: AutomationFlowCreateManyInput | AutomationFlowCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AutomationFlow createManyAndReturn
-   */
-  export type AutomationFlowCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * The data used to create many AutomationFlows.
-     */
-    data: AutomationFlowCreateManyInput | AutomationFlowCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AutomationFlow update
-   */
-  export type AutomationFlowUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * The data needed to update a AutomationFlow.
-     */
-    data: XOR<AutomationFlowUpdateInput, AutomationFlowUncheckedUpdateInput>
-    /**
-     * Choose, which AutomationFlow to update.
-     */
-    where: AutomationFlowWhereUniqueInput
-  }
-
-  /**
-   * AutomationFlow updateMany
-   */
-  export type AutomationFlowUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AutomationFlows.
-     */
-    data: XOR<AutomationFlowUpdateManyMutationInput, AutomationFlowUncheckedUpdateManyInput>
-    /**
-     * Filter which AutomationFlows to update
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * Limit how many AutomationFlows to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AutomationFlow updateManyAndReturn
-   */
-  export type AutomationFlowUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * The data used to update AutomationFlows.
-     */
-    data: XOR<AutomationFlowUpdateManyMutationInput, AutomationFlowUncheckedUpdateManyInput>
-    /**
-     * Filter which AutomationFlows to update
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * Limit how many AutomationFlows to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AutomationFlow upsert
-   */
-  export type AutomationFlowUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * The filter to search for the AutomationFlow to update in case it exists.
-     */
-    where: AutomationFlowWhereUniqueInput
-    /**
-     * In case the AutomationFlow found by the `where` argument doesn't exist, create a new AutomationFlow with this data.
-     */
-    create: XOR<AutomationFlowCreateInput, AutomationFlowUncheckedCreateInput>
-    /**
-     * In case the AutomationFlow was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AutomationFlowUpdateInput, AutomationFlowUncheckedUpdateInput>
-  }
-
-  /**
-   * AutomationFlow delete
-   */
-  export type AutomationFlowDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-    /**
-     * Filter which AutomationFlow to delete.
-     */
-    where: AutomationFlowWhereUniqueInput
-  }
-
-  /**
-   * AutomationFlow deleteMany
-   */
-  export type AutomationFlowDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AutomationFlows to delete
-     */
-    where?: AutomationFlowWhereInput
-    /**
-     * Limit how many AutomationFlows to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * AutomationFlow without action
-   */
-  export type AutomationFlowDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AutomationFlow
-     */
-    select?: AutomationFlowSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AutomationFlow
-     */
-    omit?: AutomationFlowOmit<ExtArgs> | null
-  }
-
-
-  /**
-   * Model FlowRun
-   */
-
-  export type AggregateFlowRun = {
-    _count: FlowRunCountAggregateOutputType | null
-    _avg: FlowRunAvgAggregateOutputType | null
-    _sum: FlowRunSumAggregateOutputType | null
-    _min: FlowRunMinAggregateOutputType | null
-    _max: FlowRunMaxAggregateOutputType | null
-  }
-
-  export type FlowRunAvgAggregateOutputType = {
-    id: number | null
-    flowId: number | null
-  }
-
-  export type FlowRunSumAggregateOutputType = {
-    id: number | null
-    flowId: number | null
-  }
-
-  export type FlowRunMinAggregateOutputType = {
-    id: number | null
-    flowId: number | null
-    flowName: string | null
-    status: string | null
-    timestamp: string | null
-    details: string | null
-    isDeleted: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type FlowRunMaxAggregateOutputType = {
-    id: number | null
-    flowId: number | null
-    flowName: string | null
-    status: string | null
-    timestamp: string | null
-    details: string | null
-    isDeleted: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type FlowRunCountAggregateOutputType = {
-    id: number
-    flowId: number
-    flowName: number
-    status: number
-    timestamp: number
-    details: number
-    isDeleted: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type FlowRunAvgAggregateInputType = {
-    id?: true
-    flowId?: true
-  }
-
-  export type FlowRunSumAggregateInputType = {
-    id?: true
-    flowId?: true
-  }
-
-  export type FlowRunMinAggregateInputType = {
-    id?: true
-    flowId?: true
-    flowName?: true
-    status?: true
-    timestamp?: true
-    details?: true
-    isDeleted?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type FlowRunMaxAggregateInputType = {
-    id?: true
-    flowId?: true
-    flowName?: true
-    status?: true
-    timestamp?: true
-    details?: true
-    isDeleted?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type FlowRunCountAggregateInputType = {
-    id?: true
-    flowId?: true
-    flowName?: true
-    status?: true
-    timestamp?: true
-    details?: true
-    isDeleted?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type FlowRunAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FlowRun to aggregate.
-     */
-    where?: FlowRunWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FlowRuns to fetch.
-     */
-    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: FlowRunWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FlowRuns from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FlowRuns.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned FlowRuns
-    **/
-    _count?: true | FlowRunCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: FlowRunAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: FlowRunSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: FlowRunMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: FlowRunMaxAggregateInputType
-  }
-
-  export type GetFlowRunAggregateType<T extends FlowRunAggregateArgs> = {
-        [P in keyof T & keyof AggregateFlowRun]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateFlowRun[P]>
-      : GetScalarType<T[P], AggregateFlowRun[P]>
-  }
-
-
-
-
-  export type FlowRunGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FlowRunWhereInput
-    orderBy?: FlowRunOrderByWithAggregationInput | FlowRunOrderByWithAggregationInput[]
-    by: FlowRunScalarFieldEnum[] | FlowRunScalarFieldEnum
-    having?: FlowRunScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: FlowRunCountAggregateInputType | true
-    _avg?: FlowRunAvgAggregateInputType
-    _sum?: FlowRunSumAggregateInputType
-    _min?: FlowRunMinAggregateInputType
-    _max?: FlowRunMaxAggregateInputType
-  }
-
-  export type FlowRunGroupByOutputType = {
-    id: number
-    flowId: number
-    flowName: string
-    status: string
-    timestamp: string
-    details: string
-    isDeleted: boolean
-    createdAt: Date
-    updatedAt: Date
-    _count: FlowRunCountAggregateOutputType | null
-    _avg: FlowRunAvgAggregateOutputType | null
-    _sum: FlowRunSumAggregateOutputType | null
-    _min: FlowRunMinAggregateOutputType | null
-    _max: FlowRunMaxAggregateOutputType | null
-  }
-
-  type GetFlowRunGroupByPayload<T extends FlowRunGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<FlowRunGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof FlowRunGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], FlowRunGroupByOutputType[P]>
-            : GetScalarType<T[P], FlowRunGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type FlowRunSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    flowId?: boolean
-    flowName?: boolean
-    status?: boolean
-    timestamp?: boolean
-    details?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["flowRun"]>
-
-  export type FlowRunSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    flowId?: boolean
-    flowName?: boolean
-    status?: boolean
-    timestamp?: boolean
-    details?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["flowRun"]>
-
-  export type FlowRunSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    flowId?: boolean
-    flowName?: boolean
-    status?: boolean
-    timestamp?: boolean
-    details?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["flowRun"]>
-
-  export type FlowRunSelectScalar = {
-    id?: boolean
-    flowId?: boolean
-    flowName?: boolean
-    status?: boolean
-    timestamp?: boolean
-    details?: boolean
-    isDeleted?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type FlowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "flowId" | "flowName" | "status" | "timestamp" | "details" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["flowRun"]>
-
-  export type $FlowRunPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "FlowRun"
-    objects: {}
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      flowId: number
-      flowName: string
-      status: string
-      timestamp: string
-      details: string
-      isDeleted: boolean
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["flowRun"]>
-    composites: {}
-  }
-
-  type FlowRunGetPayload<S extends boolean | null | undefined | FlowRunDefaultArgs> = $Result.GetResult<Prisma.$FlowRunPayload, S>
-
-  type FlowRunCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FlowRunFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: FlowRunCountAggregateInputType | true
-    }
-
-  export interface FlowRunDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FlowRun'], meta: { name: 'FlowRun' } }
-    /**
-     * Find zero or one FlowRun that matches the filter.
-     * @param {FlowRunFindUniqueArgs} args - Arguments to find a FlowRun
-     * @example
-     * // Get one FlowRun
-     * const flowRun = await prisma.flowRun.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends FlowRunFindUniqueArgs>(args: SelectSubset<T, FlowRunFindUniqueArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one FlowRun that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {FlowRunFindUniqueOrThrowArgs} args - Arguments to find a FlowRun
-     * @example
-     * // Get one FlowRun
-     * const flowRun = await prisma.flowRun.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends FlowRunFindUniqueOrThrowArgs>(args: SelectSubset<T, FlowRunFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first FlowRun that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunFindFirstArgs} args - Arguments to find a FlowRun
-     * @example
-     * // Get one FlowRun
-     * const flowRun = await prisma.flowRun.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends FlowRunFindFirstArgs>(args?: SelectSubset<T, FlowRunFindFirstArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first FlowRun that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunFindFirstOrThrowArgs} args - Arguments to find a FlowRun
-     * @example
-     * // Get one FlowRun
-     * const flowRun = await prisma.flowRun.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends FlowRunFindFirstOrThrowArgs>(args?: SelectSubset<T, FlowRunFindFirstOrThrowArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more FlowRuns that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all FlowRuns
-     * const flowRuns = await prisma.flowRun.findMany()
-     * 
-     * // Get first 10 FlowRuns
-     * const flowRuns = await prisma.flowRun.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const flowRunWithIdOnly = await prisma.flowRun.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends FlowRunFindManyArgs>(args?: SelectSubset<T, FlowRunFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a FlowRun.
-     * @param {FlowRunCreateArgs} args - Arguments to create a FlowRun.
-     * @example
-     * // Create one FlowRun
-     * const FlowRun = await prisma.flowRun.create({
-     *   data: {
-     *     // ... data to create a FlowRun
-     *   }
-     * })
-     * 
-     */
-    create<T extends FlowRunCreateArgs>(args: SelectSubset<T, FlowRunCreateArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many FlowRuns.
-     * @param {FlowRunCreateManyArgs} args - Arguments to create many FlowRuns.
-     * @example
-     * // Create many FlowRuns
-     * const flowRun = await prisma.flowRun.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends FlowRunCreateManyArgs>(args?: SelectSubset<T, FlowRunCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many FlowRuns and returns the data saved in the database.
-     * @param {FlowRunCreateManyAndReturnArgs} args - Arguments to create many FlowRuns.
-     * @example
-     * // Create many FlowRuns
-     * const flowRun = await prisma.flowRun.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many FlowRuns and only return the `id`
-     * const flowRunWithIdOnly = await prisma.flowRun.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends FlowRunCreateManyAndReturnArgs>(args?: SelectSubset<T, FlowRunCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a FlowRun.
-     * @param {FlowRunDeleteArgs} args - Arguments to delete one FlowRun.
-     * @example
-     * // Delete one FlowRun
-     * const FlowRun = await prisma.flowRun.delete({
-     *   where: {
-     *     // ... filter to delete one FlowRun
-     *   }
-     * })
-     * 
-     */
-    delete<T extends FlowRunDeleteArgs>(args: SelectSubset<T, FlowRunDeleteArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one FlowRun.
-     * @param {FlowRunUpdateArgs} args - Arguments to update one FlowRun.
-     * @example
-     * // Update one FlowRun
-     * const flowRun = await prisma.flowRun.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends FlowRunUpdateArgs>(args: SelectSubset<T, FlowRunUpdateArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more FlowRuns.
-     * @param {FlowRunDeleteManyArgs} args - Arguments to filter FlowRuns to delete.
-     * @example
-     * // Delete a few FlowRuns
-     * const { count } = await prisma.flowRun.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends FlowRunDeleteManyArgs>(args?: SelectSubset<T, FlowRunDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FlowRuns.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many FlowRuns
-     * const flowRun = await prisma.flowRun.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends FlowRunUpdateManyArgs>(args: SelectSubset<T, FlowRunUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more FlowRuns and returns the data updated in the database.
-     * @param {FlowRunUpdateManyAndReturnArgs} args - Arguments to update many FlowRuns.
-     * @example
-     * // Update many FlowRuns
-     * const flowRun = await prisma.flowRun.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more FlowRuns and only return the `id`
-     * const flowRunWithIdOnly = await prisma.flowRun.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends FlowRunUpdateManyAndReturnArgs>(args: SelectSubset<T, FlowRunUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one FlowRun.
-     * @param {FlowRunUpsertArgs} args - Arguments to update or create a FlowRun.
-     * @example
-     * // Update or create a FlowRun
-     * const flowRun = await prisma.flowRun.upsert({
-     *   create: {
-     *     // ... data to create a FlowRun
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the FlowRun we want to update
-     *   }
-     * })
-     */
-    upsert<T extends FlowRunUpsertArgs>(args: SelectSubset<T, FlowRunUpsertArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of FlowRuns.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunCountArgs} args - Arguments to filter FlowRuns to count.
-     * @example
-     * // Count the number of FlowRuns
-     * const count = await prisma.flowRun.count({
-     *   where: {
-     *     // ... the filter for the FlowRuns we want to count
-     *   }
-     * })
-    **/
-    count<T extends FlowRunCountArgs>(
-      args?: Subset<T, FlowRunCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], FlowRunCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a FlowRun.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends FlowRunAggregateArgs>(args: Subset<T, FlowRunAggregateArgs>): Prisma.PrismaPromise<GetFlowRunAggregateType<T>>
-
-    /**
-     * Group by FlowRun.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {FlowRunGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends FlowRunGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: FlowRunGroupByArgs['orderBy'] }
-        : { orderBy?: FlowRunGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, FlowRunGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFlowRunGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the FlowRun model
-   */
-  readonly fields: FlowRunFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for FlowRun.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__FlowRunClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the FlowRun model
-   */
-  interface FlowRunFieldRefs {
-    readonly id: FieldRef<"FlowRun", 'Int'>
-    readonly flowId: FieldRef<"FlowRun", 'Int'>
-    readonly flowName: FieldRef<"FlowRun", 'String'>
-    readonly status: FieldRef<"FlowRun", 'String'>
-    readonly timestamp: FieldRef<"FlowRun", 'String'>
-    readonly details: FieldRef<"FlowRun", 'String'>
-    readonly isDeleted: FieldRef<"FlowRun", 'Boolean'>
-    readonly createdAt: FieldRef<"FlowRun", 'DateTime'>
-    readonly updatedAt: FieldRef<"FlowRun", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * FlowRun findUnique
-   */
-  export type FlowRunFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * Filter, which FlowRun to fetch.
-     */
-    where: FlowRunWhereUniqueInput
-  }
-
-  /**
-   * FlowRun findUniqueOrThrow
-   */
-  export type FlowRunFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * Filter, which FlowRun to fetch.
-     */
-    where: FlowRunWhereUniqueInput
-  }
-
-  /**
-   * FlowRun findFirst
-   */
-  export type FlowRunFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * Filter, which FlowRun to fetch.
-     */
-    where?: FlowRunWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FlowRuns to fetch.
-     */
-    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FlowRuns.
-     */
-    cursor?: FlowRunWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FlowRuns from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FlowRuns.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FlowRuns.
-     */
-    distinct?: FlowRunScalarFieldEnum | FlowRunScalarFieldEnum[]
-  }
-
-  /**
-   * FlowRun findFirstOrThrow
-   */
-  export type FlowRunFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * Filter, which FlowRun to fetch.
-     */
-    where?: FlowRunWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FlowRuns to fetch.
-     */
-    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for FlowRuns.
-     */
-    cursor?: FlowRunWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FlowRuns from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FlowRuns.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of FlowRuns.
-     */
-    distinct?: FlowRunScalarFieldEnum | FlowRunScalarFieldEnum[]
-  }
-
-  /**
-   * FlowRun findMany
-   */
-  export type FlowRunFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * Filter, which FlowRuns to fetch.
-     */
-    where?: FlowRunWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of FlowRuns to fetch.
-     */
-    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing FlowRuns.
-     */
-    cursor?: FlowRunWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` FlowRuns from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` FlowRuns.
-     */
-    skip?: number
-    distinct?: FlowRunScalarFieldEnum | FlowRunScalarFieldEnum[]
-  }
-
-  /**
-   * FlowRun create
-   */
-  export type FlowRunCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * The data needed to create a FlowRun.
-     */
-    data: XOR<FlowRunCreateInput, FlowRunUncheckedCreateInput>
-  }
-
-  /**
-   * FlowRun createMany
-   */
-  export type FlowRunCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many FlowRuns.
-     */
-    data: FlowRunCreateManyInput | FlowRunCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * FlowRun createManyAndReturn
-   */
-  export type FlowRunCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * The data used to create many FlowRuns.
-     */
-    data: FlowRunCreateManyInput | FlowRunCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * FlowRun update
-   */
-  export type FlowRunUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * The data needed to update a FlowRun.
-     */
-    data: XOR<FlowRunUpdateInput, FlowRunUncheckedUpdateInput>
-    /**
-     * Choose, which FlowRun to update.
-     */
-    where: FlowRunWhereUniqueInput
-  }
-
-  /**
-   * FlowRun updateMany
-   */
-  export type FlowRunUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update FlowRuns.
-     */
-    data: XOR<FlowRunUpdateManyMutationInput, FlowRunUncheckedUpdateManyInput>
-    /**
-     * Filter which FlowRuns to update
-     */
-    where?: FlowRunWhereInput
-    /**
-     * Limit how many FlowRuns to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * FlowRun updateManyAndReturn
-   */
-  export type FlowRunUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * The data used to update FlowRuns.
-     */
-    data: XOR<FlowRunUpdateManyMutationInput, FlowRunUncheckedUpdateManyInput>
-    /**
-     * Filter which FlowRuns to update
-     */
-    where?: FlowRunWhereInput
-    /**
-     * Limit how many FlowRuns to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * FlowRun upsert
-   */
-  export type FlowRunUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * The filter to search for the FlowRun to update in case it exists.
-     */
-    where: FlowRunWhereUniqueInput
-    /**
-     * In case the FlowRun found by the `where` argument doesn't exist, create a new FlowRun with this data.
-     */
-    create: XOR<FlowRunCreateInput, FlowRunUncheckedCreateInput>
-    /**
-     * In case the FlowRun was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<FlowRunUpdateInput, FlowRunUncheckedUpdateInput>
-  }
-
-  /**
-   * FlowRun delete
-   */
-  export type FlowRunDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
-    /**
-     * Filter which FlowRun to delete.
-     */
-    where: FlowRunWhereUniqueInput
-  }
-
-  /**
-   * FlowRun deleteMany
-   */
-  export type FlowRunDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which FlowRuns to delete
-     */
-    where?: FlowRunWhereInput
-    /**
-     * Limit how many FlowRuns to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * FlowRun without action
-   */
-  export type FlowRunDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FlowRun
-     */
-    select?: FlowRunSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the FlowRun
-     */
-    omit?: FlowRunOmit<ExtArgs> | null
   }
 
 
@@ -11755,6 +9468,2180 @@ export namespace Prisma {
 
 
   /**
+   * Model AutomationFlow
+   */
+
+  export type AggregateAutomationFlow = {
+    _count: AutomationFlowCountAggregateOutputType | null
+    _avg: AutomationFlowAvgAggregateOutputType | null
+    _sum: AutomationFlowSumAggregateOutputType | null
+    _min: AutomationFlowMinAggregateOutputType | null
+    _max: AutomationFlowMaxAggregateOutputType | null
+  }
+
+  export type AutomationFlowAvgAggregateOutputType = {
+    id: number | null
+    dailyTriggers: number | null
+    successRate: number | null
+  }
+
+  export type AutomationFlowSumAggregateOutputType = {
+    id: number | null
+    dailyTriggers: number | null
+    successRate: number | null
+  }
+
+  export type AutomationFlowMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    status: string | null
+    dailyTriggers: number | null
+    successRate: number | null
+    lastRun: Date | null
+    isDeleted: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AutomationFlowMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    status: string | null
+    dailyTriggers: number | null
+    successRate: number | null
+    lastRun: Date | null
+    isDeleted: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AutomationFlowCountAggregateOutputType = {
+    id: number
+    name: number
+    status: number
+    dailyTriggers: number
+    successRate: number
+    lastRun: number
+    isDeleted: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AutomationFlowAvgAggregateInputType = {
+    id?: true
+    dailyTriggers?: true
+    successRate?: true
+  }
+
+  export type AutomationFlowSumAggregateInputType = {
+    id?: true
+    dailyTriggers?: true
+    successRate?: true
+  }
+
+  export type AutomationFlowMinAggregateInputType = {
+    id?: true
+    name?: true
+    status?: true
+    dailyTriggers?: true
+    successRate?: true
+    lastRun?: true
+    isDeleted?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AutomationFlowMaxAggregateInputType = {
+    id?: true
+    name?: true
+    status?: true
+    dailyTriggers?: true
+    successRate?: true
+    lastRun?: true
+    isDeleted?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AutomationFlowCountAggregateInputType = {
+    id?: true
+    name?: true
+    status?: true
+    dailyTriggers?: true
+    successRate?: true
+    lastRun?: true
+    isDeleted?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AutomationFlowAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AutomationFlow to aggregate.
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutomationFlows to fetch.
+     */
+    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AutomationFlowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutomationFlows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutomationFlows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AutomationFlows
+    **/
+    _count?: true | AutomationFlowCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AutomationFlowAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AutomationFlowSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AutomationFlowMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AutomationFlowMaxAggregateInputType
+  }
+
+  export type GetAutomationFlowAggregateType<T extends AutomationFlowAggregateArgs> = {
+        [P in keyof T & keyof AggregateAutomationFlow]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAutomationFlow[P]>
+      : GetScalarType<T[P], AggregateAutomationFlow[P]>
+  }
+
+
+
+
+  export type AutomationFlowGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AutomationFlowWhereInput
+    orderBy?: AutomationFlowOrderByWithAggregationInput | AutomationFlowOrderByWithAggregationInput[]
+    by: AutomationFlowScalarFieldEnum[] | AutomationFlowScalarFieldEnum
+    having?: AutomationFlowScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AutomationFlowCountAggregateInputType | true
+    _avg?: AutomationFlowAvgAggregateInputType
+    _sum?: AutomationFlowSumAggregateInputType
+    _min?: AutomationFlowMinAggregateInputType
+    _max?: AutomationFlowMaxAggregateInputType
+  }
+
+  export type AutomationFlowGroupByOutputType = {
+    id: number
+    name: string
+    status: string
+    dailyTriggers: number
+    successRate: number
+    lastRun: Date | null
+    isDeleted: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: AutomationFlowCountAggregateOutputType | null
+    _avg: AutomationFlowAvgAggregateOutputType | null
+    _sum: AutomationFlowSumAggregateOutputType | null
+    _min: AutomationFlowMinAggregateOutputType | null
+    _max: AutomationFlowMaxAggregateOutputType | null
+  }
+
+  type GetAutomationFlowGroupByPayload<T extends AutomationFlowGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AutomationFlowGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AutomationFlowGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AutomationFlowGroupByOutputType[P]>
+            : GetScalarType<T[P], AutomationFlowGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AutomationFlowSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    status?: boolean
+    dailyTriggers?: boolean
+    successRate?: boolean
+    lastRun?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["automationFlow"]>
+
+  export type AutomationFlowSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    status?: boolean
+    dailyTriggers?: boolean
+    successRate?: boolean
+    lastRun?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["automationFlow"]>
+
+  export type AutomationFlowSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    status?: boolean
+    dailyTriggers?: boolean
+    successRate?: boolean
+    lastRun?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["automationFlow"]>
+
+  export type AutomationFlowSelectScalar = {
+    id?: boolean
+    name?: boolean
+    status?: boolean
+    dailyTriggers?: boolean
+    successRate?: boolean
+    lastRun?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AutomationFlowOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "status" | "dailyTriggers" | "successRate" | "lastRun" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["automationFlow"]>
+
+  export type $AutomationFlowPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AutomationFlow"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      status: string
+      dailyTriggers: number
+      successRate: number
+      lastRun: Date | null
+      isDeleted: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["automationFlow"]>
+    composites: {}
+  }
+
+  type AutomationFlowGetPayload<S extends boolean | null | undefined | AutomationFlowDefaultArgs> = $Result.GetResult<Prisma.$AutomationFlowPayload, S>
+
+  type AutomationFlowCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AutomationFlowFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AutomationFlowCountAggregateInputType | true
+    }
+
+  export interface AutomationFlowDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AutomationFlow'], meta: { name: 'AutomationFlow' } }
+    /**
+     * Find zero or one AutomationFlow that matches the filter.
+     * @param {AutomationFlowFindUniqueArgs} args - Arguments to find a AutomationFlow
+     * @example
+     * // Get one AutomationFlow
+     * const automationFlow = await prisma.automationFlow.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AutomationFlowFindUniqueArgs>(args: SelectSubset<T, AutomationFlowFindUniqueArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AutomationFlow that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AutomationFlowFindUniqueOrThrowArgs} args - Arguments to find a AutomationFlow
+     * @example
+     * // Get one AutomationFlow
+     * const automationFlow = await prisma.automationFlow.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AutomationFlowFindUniqueOrThrowArgs>(args: SelectSubset<T, AutomationFlowFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AutomationFlow that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowFindFirstArgs} args - Arguments to find a AutomationFlow
+     * @example
+     * // Get one AutomationFlow
+     * const automationFlow = await prisma.automationFlow.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AutomationFlowFindFirstArgs>(args?: SelectSubset<T, AutomationFlowFindFirstArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AutomationFlow that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowFindFirstOrThrowArgs} args - Arguments to find a AutomationFlow
+     * @example
+     * // Get one AutomationFlow
+     * const automationFlow = await prisma.automationFlow.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AutomationFlowFindFirstOrThrowArgs>(args?: SelectSubset<T, AutomationFlowFindFirstOrThrowArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AutomationFlows that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AutomationFlows
+     * const automationFlows = await prisma.automationFlow.findMany()
+     * 
+     * // Get first 10 AutomationFlows
+     * const automationFlows = await prisma.automationFlow.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const automationFlowWithIdOnly = await prisma.automationFlow.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AutomationFlowFindManyArgs>(args?: SelectSubset<T, AutomationFlowFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AutomationFlow.
+     * @param {AutomationFlowCreateArgs} args - Arguments to create a AutomationFlow.
+     * @example
+     * // Create one AutomationFlow
+     * const AutomationFlow = await prisma.automationFlow.create({
+     *   data: {
+     *     // ... data to create a AutomationFlow
+     *   }
+     * })
+     * 
+     */
+    create<T extends AutomationFlowCreateArgs>(args: SelectSubset<T, AutomationFlowCreateArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AutomationFlows.
+     * @param {AutomationFlowCreateManyArgs} args - Arguments to create many AutomationFlows.
+     * @example
+     * // Create many AutomationFlows
+     * const automationFlow = await prisma.automationFlow.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AutomationFlowCreateManyArgs>(args?: SelectSubset<T, AutomationFlowCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AutomationFlows and returns the data saved in the database.
+     * @param {AutomationFlowCreateManyAndReturnArgs} args - Arguments to create many AutomationFlows.
+     * @example
+     * // Create many AutomationFlows
+     * const automationFlow = await prisma.automationFlow.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AutomationFlows and only return the `id`
+     * const automationFlowWithIdOnly = await prisma.automationFlow.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AutomationFlowCreateManyAndReturnArgs>(args?: SelectSubset<T, AutomationFlowCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AutomationFlow.
+     * @param {AutomationFlowDeleteArgs} args - Arguments to delete one AutomationFlow.
+     * @example
+     * // Delete one AutomationFlow
+     * const AutomationFlow = await prisma.automationFlow.delete({
+     *   where: {
+     *     // ... filter to delete one AutomationFlow
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AutomationFlowDeleteArgs>(args: SelectSubset<T, AutomationFlowDeleteArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AutomationFlow.
+     * @param {AutomationFlowUpdateArgs} args - Arguments to update one AutomationFlow.
+     * @example
+     * // Update one AutomationFlow
+     * const automationFlow = await prisma.automationFlow.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AutomationFlowUpdateArgs>(args: SelectSubset<T, AutomationFlowUpdateArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AutomationFlows.
+     * @param {AutomationFlowDeleteManyArgs} args - Arguments to filter AutomationFlows to delete.
+     * @example
+     * // Delete a few AutomationFlows
+     * const { count } = await prisma.automationFlow.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AutomationFlowDeleteManyArgs>(args?: SelectSubset<T, AutomationFlowDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AutomationFlows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AutomationFlows
+     * const automationFlow = await prisma.automationFlow.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AutomationFlowUpdateManyArgs>(args: SelectSubset<T, AutomationFlowUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AutomationFlows and returns the data updated in the database.
+     * @param {AutomationFlowUpdateManyAndReturnArgs} args - Arguments to update many AutomationFlows.
+     * @example
+     * // Update many AutomationFlows
+     * const automationFlow = await prisma.automationFlow.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AutomationFlows and only return the `id`
+     * const automationFlowWithIdOnly = await prisma.automationFlow.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AutomationFlowUpdateManyAndReturnArgs>(args: SelectSubset<T, AutomationFlowUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AutomationFlow.
+     * @param {AutomationFlowUpsertArgs} args - Arguments to update or create a AutomationFlow.
+     * @example
+     * // Update or create a AutomationFlow
+     * const automationFlow = await prisma.automationFlow.upsert({
+     *   create: {
+     *     // ... data to create a AutomationFlow
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AutomationFlow we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AutomationFlowUpsertArgs>(args: SelectSubset<T, AutomationFlowUpsertArgs<ExtArgs>>): Prisma__AutomationFlowClient<$Result.GetResult<Prisma.$AutomationFlowPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AutomationFlows.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowCountArgs} args - Arguments to filter AutomationFlows to count.
+     * @example
+     * // Count the number of AutomationFlows
+     * const count = await prisma.automationFlow.count({
+     *   where: {
+     *     // ... the filter for the AutomationFlows we want to count
+     *   }
+     * })
+    **/
+    count<T extends AutomationFlowCountArgs>(
+      args?: Subset<T, AutomationFlowCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AutomationFlowCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AutomationFlow.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AutomationFlowAggregateArgs>(args: Subset<T, AutomationFlowAggregateArgs>): Prisma.PrismaPromise<GetAutomationFlowAggregateType<T>>
+
+    /**
+     * Group by AutomationFlow.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AutomationFlowGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AutomationFlowGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AutomationFlowGroupByArgs['orderBy'] }
+        : { orderBy?: AutomationFlowGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AutomationFlowGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAutomationFlowGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AutomationFlow model
+   */
+  readonly fields: AutomationFlowFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AutomationFlow.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AutomationFlowClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AutomationFlow model
+   */
+  interface AutomationFlowFieldRefs {
+    readonly id: FieldRef<"AutomationFlow", 'Int'>
+    readonly name: FieldRef<"AutomationFlow", 'String'>
+    readonly status: FieldRef<"AutomationFlow", 'String'>
+    readonly dailyTriggers: FieldRef<"AutomationFlow", 'Int'>
+    readonly successRate: FieldRef<"AutomationFlow", 'Float'>
+    readonly lastRun: FieldRef<"AutomationFlow", 'DateTime'>
+    readonly isDeleted: FieldRef<"AutomationFlow", 'Boolean'>
+    readonly createdAt: FieldRef<"AutomationFlow", 'DateTime'>
+    readonly updatedAt: FieldRef<"AutomationFlow", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AutomationFlow findUnique
+   */
+  export type AutomationFlowFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * Filter, which AutomationFlow to fetch.
+     */
+    where: AutomationFlowWhereUniqueInput
+  }
+
+  /**
+   * AutomationFlow findUniqueOrThrow
+   */
+  export type AutomationFlowFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * Filter, which AutomationFlow to fetch.
+     */
+    where: AutomationFlowWhereUniqueInput
+  }
+
+  /**
+   * AutomationFlow findFirst
+   */
+  export type AutomationFlowFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * Filter, which AutomationFlow to fetch.
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutomationFlows to fetch.
+     */
+    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AutomationFlows.
+     */
+    cursor?: AutomationFlowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutomationFlows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutomationFlows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AutomationFlows.
+     */
+    distinct?: AutomationFlowScalarFieldEnum | AutomationFlowScalarFieldEnum[]
+  }
+
+  /**
+   * AutomationFlow findFirstOrThrow
+   */
+  export type AutomationFlowFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * Filter, which AutomationFlow to fetch.
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutomationFlows to fetch.
+     */
+    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AutomationFlows.
+     */
+    cursor?: AutomationFlowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutomationFlows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutomationFlows.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AutomationFlows.
+     */
+    distinct?: AutomationFlowScalarFieldEnum | AutomationFlowScalarFieldEnum[]
+  }
+
+  /**
+   * AutomationFlow findMany
+   */
+  export type AutomationFlowFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * Filter, which AutomationFlows to fetch.
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AutomationFlows to fetch.
+     */
+    orderBy?: AutomationFlowOrderByWithRelationInput | AutomationFlowOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AutomationFlows.
+     */
+    cursor?: AutomationFlowWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AutomationFlows from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AutomationFlows.
+     */
+    skip?: number
+    distinct?: AutomationFlowScalarFieldEnum | AutomationFlowScalarFieldEnum[]
+  }
+
+  /**
+   * AutomationFlow create
+   */
+  export type AutomationFlowCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * The data needed to create a AutomationFlow.
+     */
+    data: XOR<AutomationFlowCreateInput, AutomationFlowUncheckedCreateInput>
+  }
+
+  /**
+   * AutomationFlow createMany
+   */
+  export type AutomationFlowCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AutomationFlows.
+     */
+    data: AutomationFlowCreateManyInput | AutomationFlowCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AutomationFlow createManyAndReturn
+   */
+  export type AutomationFlowCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * The data used to create many AutomationFlows.
+     */
+    data: AutomationFlowCreateManyInput | AutomationFlowCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AutomationFlow update
+   */
+  export type AutomationFlowUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * The data needed to update a AutomationFlow.
+     */
+    data: XOR<AutomationFlowUpdateInput, AutomationFlowUncheckedUpdateInput>
+    /**
+     * Choose, which AutomationFlow to update.
+     */
+    where: AutomationFlowWhereUniqueInput
+  }
+
+  /**
+   * AutomationFlow updateMany
+   */
+  export type AutomationFlowUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AutomationFlows.
+     */
+    data: XOR<AutomationFlowUpdateManyMutationInput, AutomationFlowUncheckedUpdateManyInput>
+    /**
+     * Filter which AutomationFlows to update
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * Limit how many AutomationFlows to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AutomationFlow updateManyAndReturn
+   */
+  export type AutomationFlowUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * The data used to update AutomationFlows.
+     */
+    data: XOR<AutomationFlowUpdateManyMutationInput, AutomationFlowUncheckedUpdateManyInput>
+    /**
+     * Filter which AutomationFlows to update
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * Limit how many AutomationFlows to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AutomationFlow upsert
+   */
+  export type AutomationFlowUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * The filter to search for the AutomationFlow to update in case it exists.
+     */
+    where: AutomationFlowWhereUniqueInput
+    /**
+     * In case the AutomationFlow found by the `where` argument doesn't exist, create a new AutomationFlow with this data.
+     */
+    create: XOR<AutomationFlowCreateInput, AutomationFlowUncheckedCreateInput>
+    /**
+     * In case the AutomationFlow was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AutomationFlowUpdateInput, AutomationFlowUncheckedUpdateInput>
+  }
+
+  /**
+   * AutomationFlow delete
+   */
+  export type AutomationFlowDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+    /**
+     * Filter which AutomationFlow to delete.
+     */
+    where: AutomationFlowWhereUniqueInput
+  }
+
+  /**
+   * AutomationFlow deleteMany
+   */
+  export type AutomationFlowDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AutomationFlows to delete
+     */
+    where?: AutomationFlowWhereInput
+    /**
+     * Limit how many AutomationFlows to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AutomationFlow without action
+   */
+  export type AutomationFlowDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AutomationFlow
+     */
+    select?: AutomationFlowSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AutomationFlow
+     */
+    omit?: AutomationFlowOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FlowRun
+   */
+
+  export type AggregateFlowRun = {
+    _count: FlowRunCountAggregateOutputType | null
+    _avg: FlowRunAvgAggregateOutputType | null
+    _sum: FlowRunSumAggregateOutputType | null
+    _min: FlowRunMinAggregateOutputType | null
+    _max: FlowRunMaxAggregateOutputType | null
+  }
+
+  export type FlowRunAvgAggregateOutputType = {
+    id: number | null
+    flowId: number | null
+  }
+
+  export type FlowRunSumAggregateOutputType = {
+    id: number | null
+    flowId: number | null
+  }
+
+  export type FlowRunMinAggregateOutputType = {
+    id: number | null
+    flowId: number | null
+    status: string | null
+    name: string | null
+    timestamp: Date | null
+    details: string | null
+    isDeleted: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FlowRunMaxAggregateOutputType = {
+    id: number | null
+    flowId: number | null
+    status: string | null
+    name: string | null
+    timestamp: Date | null
+    details: string | null
+    isDeleted: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FlowRunCountAggregateOutputType = {
+    id: number
+    flowId: number
+    status: number
+    name: number
+    timestamp: number
+    details: number
+    isDeleted: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FlowRunAvgAggregateInputType = {
+    id?: true
+    flowId?: true
+  }
+
+  export type FlowRunSumAggregateInputType = {
+    id?: true
+    flowId?: true
+  }
+
+  export type FlowRunMinAggregateInputType = {
+    id?: true
+    flowId?: true
+    status?: true
+    name?: true
+    timestamp?: true
+    details?: true
+    isDeleted?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FlowRunMaxAggregateInputType = {
+    id?: true
+    flowId?: true
+    status?: true
+    name?: true
+    timestamp?: true
+    details?: true
+    isDeleted?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FlowRunCountAggregateInputType = {
+    id?: true
+    flowId?: true
+    status?: true
+    name?: true
+    timestamp?: true
+    details?: true
+    isDeleted?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FlowRunAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FlowRun to aggregate.
+     */
+    where?: FlowRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FlowRuns to fetch.
+     */
+    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FlowRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FlowRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FlowRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FlowRuns
+    **/
+    _count?: true | FlowRunCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FlowRunAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FlowRunSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FlowRunMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FlowRunMaxAggregateInputType
+  }
+
+  export type GetFlowRunAggregateType<T extends FlowRunAggregateArgs> = {
+        [P in keyof T & keyof AggregateFlowRun]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFlowRun[P]>
+      : GetScalarType<T[P], AggregateFlowRun[P]>
+  }
+
+
+
+
+  export type FlowRunGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FlowRunWhereInput
+    orderBy?: FlowRunOrderByWithAggregationInput | FlowRunOrderByWithAggregationInput[]
+    by: FlowRunScalarFieldEnum[] | FlowRunScalarFieldEnum
+    having?: FlowRunScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FlowRunCountAggregateInputType | true
+    _avg?: FlowRunAvgAggregateInputType
+    _sum?: FlowRunSumAggregateInputType
+    _min?: FlowRunMinAggregateInputType
+    _max?: FlowRunMaxAggregateInputType
+  }
+
+  export type FlowRunGroupByOutputType = {
+    id: number
+    flowId: number | null
+    status: string
+    name: string
+    timestamp: Date
+    details: string | null
+    isDeleted: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: FlowRunCountAggregateOutputType | null
+    _avg: FlowRunAvgAggregateOutputType | null
+    _sum: FlowRunSumAggregateOutputType | null
+    _min: FlowRunMinAggregateOutputType | null
+    _max: FlowRunMaxAggregateOutputType | null
+  }
+
+  type GetFlowRunGroupByPayload<T extends FlowRunGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FlowRunGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FlowRunGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FlowRunGroupByOutputType[P]>
+            : GetScalarType<T[P], FlowRunGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FlowRunSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    flowId?: boolean
+    status?: boolean
+    name?: boolean
+    timestamp?: boolean
+    details?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["flowRun"]>
+
+  export type FlowRunSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    flowId?: boolean
+    status?: boolean
+    name?: boolean
+    timestamp?: boolean
+    details?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["flowRun"]>
+
+  export type FlowRunSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    flowId?: boolean
+    status?: boolean
+    name?: boolean
+    timestamp?: boolean
+    details?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["flowRun"]>
+
+  export type FlowRunSelectScalar = {
+    id?: boolean
+    flowId?: boolean
+    status?: boolean
+    name?: boolean
+    timestamp?: boolean
+    details?: boolean
+    isDeleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FlowRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "flowId" | "status" | "name" | "timestamp" | "details" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["flowRun"]>
+
+  export type $FlowRunPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FlowRun"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      flowId: number | null
+      status: string
+      name: string
+      timestamp: Date
+      details: string | null
+      isDeleted: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["flowRun"]>
+    composites: {}
+  }
+
+  type FlowRunGetPayload<S extends boolean | null | undefined | FlowRunDefaultArgs> = $Result.GetResult<Prisma.$FlowRunPayload, S>
+
+  type FlowRunCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FlowRunFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FlowRunCountAggregateInputType | true
+    }
+
+  export interface FlowRunDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FlowRun'], meta: { name: 'FlowRun' } }
+    /**
+     * Find zero or one FlowRun that matches the filter.
+     * @param {FlowRunFindUniqueArgs} args - Arguments to find a FlowRun
+     * @example
+     * // Get one FlowRun
+     * const flowRun = await prisma.flowRun.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FlowRunFindUniqueArgs>(args: SelectSubset<T, FlowRunFindUniqueArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FlowRun that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FlowRunFindUniqueOrThrowArgs} args - Arguments to find a FlowRun
+     * @example
+     * // Get one FlowRun
+     * const flowRun = await prisma.flowRun.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FlowRunFindUniqueOrThrowArgs>(args: SelectSubset<T, FlowRunFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FlowRun that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunFindFirstArgs} args - Arguments to find a FlowRun
+     * @example
+     * // Get one FlowRun
+     * const flowRun = await prisma.flowRun.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FlowRunFindFirstArgs>(args?: SelectSubset<T, FlowRunFindFirstArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FlowRun that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunFindFirstOrThrowArgs} args - Arguments to find a FlowRun
+     * @example
+     * // Get one FlowRun
+     * const flowRun = await prisma.flowRun.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FlowRunFindFirstOrThrowArgs>(args?: SelectSubset<T, FlowRunFindFirstOrThrowArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FlowRuns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FlowRuns
+     * const flowRuns = await prisma.flowRun.findMany()
+     * 
+     * // Get first 10 FlowRuns
+     * const flowRuns = await prisma.flowRun.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const flowRunWithIdOnly = await prisma.flowRun.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FlowRunFindManyArgs>(args?: SelectSubset<T, FlowRunFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FlowRun.
+     * @param {FlowRunCreateArgs} args - Arguments to create a FlowRun.
+     * @example
+     * // Create one FlowRun
+     * const FlowRun = await prisma.flowRun.create({
+     *   data: {
+     *     // ... data to create a FlowRun
+     *   }
+     * })
+     * 
+     */
+    create<T extends FlowRunCreateArgs>(args: SelectSubset<T, FlowRunCreateArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FlowRuns.
+     * @param {FlowRunCreateManyArgs} args - Arguments to create many FlowRuns.
+     * @example
+     * // Create many FlowRuns
+     * const flowRun = await prisma.flowRun.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FlowRunCreateManyArgs>(args?: SelectSubset<T, FlowRunCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FlowRuns and returns the data saved in the database.
+     * @param {FlowRunCreateManyAndReturnArgs} args - Arguments to create many FlowRuns.
+     * @example
+     * // Create many FlowRuns
+     * const flowRun = await prisma.flowRun.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FlowRuns and only return the `id`
+     * const flowRunWithIdOnly = await prisma.flowRun.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FlowRunCreateManyAndReturnArgs>(args?: SelectSubset<T, FlowRunCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FlowRun.
+     * @param {FlowRunDeleteArgs} args - Arguments to delete one FlowRun.
+     * @example
+     * // Delete one FlowRun
+     * const FlowRun = await prisma.flowRun.delete({
+     *   where: {
+     *     // ... filter to delete one FlowRun
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FlowRunDeleteArgs>(args: SelectSubset<T, FlowRunDeleteArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FlowRun.
+     * @param {FlowRunUpdateArgs} args - Arguments to update one FlowRun.
+     * @example
+     * // Update one FlowRun
+     * const flowRun = await prisma.flowRun.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FlowRunUpdateArgs>(args: SelectSubset<T, FlowRunUpdateArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FlowRuns.
+     * @param {FlowRunDeleteManyArgs} args - Arguments to filter FlowRuns to delete.
+     * @example
+     * // Delete a few FlowRuns
+     * const { count } = await prisma.flowRun.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FlowRunDeleteManyArgs>(args?: SelectSubset<T, FlowRunDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FlowRuns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FlowRuns
+     * const flowRun = await prisma.flowRun.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FlowRunUpdateManyArgs>(args: SelectSubset<T, FlowRunUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FlowRuns and returns the data updated in the database.
+     * @param {FlowRunUpdateManyAndReturnArgs} args - Arguments to update many FlowRuns.
+     * @example
+     * // Update many FlowRuns
+     * const flowRun = await prisma.flowRun.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FlowRuns and only return the `id`
+     * const flowRunWithIdOnly = await prisma.flowRun.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FlowRunUpdateManyAndReturnArgs>(args: SelectSubset<T, FlowRunUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FlowRun.
+     * @param {FlowRunUpsertArgs} args - Arguments to update or create a FlowRun.
+     * @example
+     * // Update or create a FlowRun
+     * const flowRun = await prisma.flowRun.upsert({
+     *   create: {
+     *     // ... data to create a FlowRun
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FlowRun we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FlowRunUpsertArgs>(args: SelectSubset<T, FlowRunUpsertArgs<ExtArgs>>): Prisma__FlowRunClient<$Result.GetResult<Prisma.$FlowRunPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FlowRuns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunCountArgs} args - Arguments to filter FlowRuns to count.
+     * @example
+     * // Count the number of FlowRuns
+     * const count = await prisma.flowRun.count({
+     *   where: {
+     *     // ... the filter for the FlowRuns we want to count
+     *   }
+     * })
+    **/
+    count<T extends FlowRunCountArgs>(
+      args?: Subset<T, FlowRunCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FlowRunCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FlowRun.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FlowRunAggregateArgs>(args: Subset<T, FlowRunAggregateArgs>): Prisma.PrismaPromise<GetFlowRunAggregateType<T>>
+
+    /**
+     * Group by FlowRun.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FlowRunGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FlowRunGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FlowRunGroupByArgs['orderBy'] }
+        : { orderBy?: FlowRunGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FlowRunGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFlowRunGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FlowRun model
+   */
+  readonly fields: FlowRunFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FlowRun.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FlowRunClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FlowRun model
+   */
+  interface FlowRunFieldRefs {
+    readonly id: FieldRef<"FlowRun", 'Int'>
+    readonly flowId: FieldRef<"FlowRun", 'Int'>
+    readonly status: FieldRef<"FlowRun", 'String'>
+    readonly name: FieldRef<"FlowRun", 'String'>
+    readonly timestamp: FieldRef<"FlowRun", 'DateTime'>
+    readonly details: FieldRef<"FlowRun", 'String'>
+    readonly isDeleted: FieldRef<"FlowRun", 'Boolean'>
+    readonly createdAt: FieldRef<"FlowRun", 'DateTime'>
+    readonly updatedAt: FieldRef<"FlowRun", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FlowRun findUnique
+   */
+  export type FlowRunFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * Filter, which FlowRun to fetch.
+     */
+    where: FlowRunWhereUniqueInput
+  }
+
+  /**
+   * FlowRun findUniqueOrThrow
+   */
+  export type FlowRunFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * Filter, which FlowRun to fetch.
+     */
+    where: FlowRunWhereUniqueInput
+  }
+
+  /**
+   * FlowRun findFirst
+   */
+  export type FlowRunFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * Filter, which FlowRun to fetch.
+     */
+    where?: FlowRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FlowRuns to fetch.
+     */
+    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FlowRuns.
+     */
+    cursor?: FlowRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FlowRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FlowRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FlowRuns.
+     */
+    distinct?: FlowRunScalarFieldEnum | FlowRunScalarFieldEnum[]
+  }
+
+  /**
+   * FlowRun findFirstOrThrow
+   */
+  export type FlowRunFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * Filter, which FlowRun to fetch.
+     */
+    where?: FlowRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FlowRuns to fetch.
+     */
+    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FlowRuns.
+     */
+    cursor?: FlowRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FlowRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FlowRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FlowRuns.
+     */
+    distinct?: FlowRunScalarFieldEnum | FlowRunScalarFieldEnum[]
+  }
+
+  /**
+   * FlowRun findMany
+   */
+  export type FlowRunFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * Filter, which FlowRuns to fetch.
+     */
+    where?: FlowRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FlowRuns to fetch.
+     */
+    orderBy?: FlowRunOrderByWithRelationInput | FlowRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FlowRuns.
+     */
+    cursor?: FlowRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FlowRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FlowRuns.
+     */
+    skip?: number
+    distinct?: FlowRunScalarFieldEnum | FlowRunScalarFieldEnum[]
+  }
+
+  /**
+   * FlowRun create
+   */
+  export type FlowRunCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * The data needed to create a FlowRun.
+     */
+    data: XOR<FlowRunCreateInput, FlowRunUncheckedCreateInput>
+  }
+
+  /**
+   * FlowRun createMany
+   */
+  export type FlowRunCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FlowRuns.
+     */
+    data: FlowRunCreateManyInput | FlowRunCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FlowRun createManyAndReturn
+   */
+  export type FlowRunCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * The data used to create many FlowRuns.
+     */
+    data: FlowRunCreateManyInput | FlowRunCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FlowRun update
+   */
+  export type FlowRunUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * The data needed to update a FlowRun.
+     */
+    data: XOR<FlowRunUpdateInput, FlowRunUncheckedUpdateInput>
+    /**
+     * Choose, which FlowRun to update.
+     */
+    where: FlowRunWhereUniqueInput
+  }
+
+  /**
+   * FlowRun updateMany
+   */
+  export type FlowRunUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FlowRuns.
+     */
+    data: XOR<FlowRunUpdateManyMutationInput, FlowRunUncheckedUpdateManyInput>
+    /**
+     * Filter which FlowRuns to update
+     */
+    where?: FlowRunWhereInput
+    /**
+     * Limit how many FlowRuns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FlowRun updateManyAndReturn
+   */
+  export type FlowRunUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * The data used to update FlowRuns.
+     */
+    data: XOR<FlowRunUpdateManyMutationInput, FlowRunUncheckedUpdateManyInput>
+    /**
+     * Filter which FlowRuns to update
+     */
+    where?: FlowRunWhereInput
+    /**
+     * Limit how many FlowRuns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FlowRun upsert
+   */
+  export type FlowRunUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * The filter to search for the FlowRun to update in case it exists.
+     */
+    where: FlowRunWhereUniqueInput
+    /**
+     * In case the FlowRun found by the `where` argument doesn't exist, create a new FlowRun with this data.
+     */
+    create: XOR<FlowRunCreateInput, FlowRunUncheckedCreateInput>
+    /**
+     * In case the FlowRun was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FlowRunUpdateInput, FlowRunUncheckedUpdateInput>
+  }
+
+  /**
+   * FlowRun delete
+   */
+  export type FlowRunDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+    /**
+     * Filter which FlowRun to delete.
+     */
+    where: FlowRunWhereUniqueInput
+  }
+
+  /**
+   * FlowRun deleteMany
+   */
+  export type FlowRunDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FlowRuns to delete
+     */
+    where?: FlowRunWhereInput
+    /**
+     * Limit how many FlowRuns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FlowRun without action
+   */
+  export type FlowRunDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FlowRun
+     */
+    select?: FlowRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FlowRun
+     */
+    omit?: FlowRunOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -11816,11 +11703,11 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     avatar: 'avatar',
-    joinDate: 'joinDate',
     shopifyId: 'shopifyId',
     ltv: 'ltv',
     avgOrderValue: 'avgOrderValue',
     totalOrders: 'totalOrders',
+    joinDate: 'joinDate',
     isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -11832,11 +11719,11 @@ export namespace Prisma {
   export const OrderScalarFieldEnum: {
     id: 'id',
     customerId: 'customerId',
+    total: 'total',
+    status: 'status',
+    date: 'date',
     shopifyOrderId: 'shopifyOrderId',
     items: 'items',
-    total: 'total',
-    date: 'date',
-    status: 'status',
     isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -11860,10 +11747,24 @@ export namespace Prisma {
   export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
 
 
+  export const KBItemScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    type: 'type',
+    size: 'size',
+    uploadedDate: 'uploadedDate',
+    storageKey: 'storageKey',
+    isDeleted: 'isDeleted',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type KBItemScalarFieldEnum = (typeof KBItemScalarFieldEnum)[keyof typeof KBItemScalarFieldEnum]
+
+
   export const AutomationFlowScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    description: 'description',
     status: 'status',
     dailyTriggers: 'dailyTriggers',
     successRate: 'successRate',
@@ -11879,8 +11780,8 @@ export namespace Prisma {
   export const FlowRunScalarFieldEnum: {
     id: 'id',
     flowId: 'flowId',
-    flowName: 'flowName',
     status: 'status',
+    name: 'name',
     timestamp: 'timestamp',
     details: 'details',
     isDeleted: 'isDeleted',
@@ -11889,21 +11790,6 @@ export namespace Prisma {
   };
 
   export type FlowRunScalarFieldEnum = (typeof FlowRunScalarFieldEnum)[keyof typeof FlowRunScalarFieldEnum]
-
-
-  export const KBItemScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    type: 'type',
-    size: 'size',
-    uploadedDate: 'uploadedDate',
-    storageKey: 'storageKey',
-    isDeleted: 'isDeleted',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type KBItemScalarFieldEnum = (typeof KBItemScalarFieldEnum)[keyof typeof KBItemScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -11920,13 +11806,6 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -12256,36 +12135,34 @@ export namespace Prisma {
     id?: IntFilter<"Customer"> | number
     name?: StringFilter<"Customer"> | string
     email?: StringFilter<"Customer"> | string
-    phone?: StringFilter<"Customer"> | string
-    avatar?: StringFilter<"Customer"> | string
-    joinDate?: StringFilter<"Customer"> | string
+    phone?: StringNullableFilter<"Customer"> | string | null
+    avatar?: StringNullableFilter<"Customer"> | string | null
     shopifyId?: StringNullableFilter<"Customer"> | string | null
     ltv?: FloatFilter<"Customer"> | number
     avgOrderValue?: FloatFilter<"Customer"> | number
     totalOrders?: IntFilter<"Customer"> | number
+    joinDate?: DateTimeFilter<"Customer"> | Date | string
     isDeleted?: BoolFilter<"Customer"> | boolean
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     orders?: OrderListRelationFilter
-    tickets?: TicketListRelationFilter
   }
 
   export type CustomerOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
-    avatar?: SortOrder
-    joinDate?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     shopifyId?: SortOrderInput | SortOrder
     ltv?: SortOrder
     avgOrderValue?: SortOrder
     totalOrders?: SortOrder
+    joinDate?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     orders?: OrderOrderByRelationAggregateInput
-    tickets?: TicketOrderByRelationAggregateInput
   }
 
   export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -12295,31 +12172,30 @@ export namespace Prisma {
     NOT?: CustomerWhereInput | CustomerWhereInput[]
     name?: StringFilter<"Customer"> | string
     email?: StringFilter<"Customer"> | string
-    phone?: StringFilter<"Customer"> | string
-    avatar?: StringFilter<"Customer"> | string
-    joinDate?: StringFilter<"Customer"> | string
+    phone?: StringNullableFilter<"Customer"> | string | null
+    avatar?: StringNullableFilter<"Customer"> | string | null
     shopifyId?: StringNullableFilter<"Customer"> | string | null
     ltv?: FloatFilter<"Customer"> | number
     avgOrderValue?: FloatFilter<"Customer"> | number
     totalOrders?: IntFilter<"Customer"> | number
+    joinDate?: DateTimeFilter<"Customer"> | Date | string
     isDeleted?: BoolFilter<"Customer"> | boolean
     createdAt?: DateTimeFilter<"Customer"> | Date | string
     updatedAt?: DateTimeFilter<"Customer"> | Date | string
     orders?: OrderListRelationFilter
-    tickets?: TicketListRelationFilter
   }, "id">
 
   export type CustomerOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
-    avatar?: SortOrder
-    joinDate?: SortOrder
+    phone?: SortOrderInput | SortOrder
+    avatar?: SortOrderInput | SortOrder
     shopifyId?: SortOrderInput | SortOrder
     ltv?: SortOrder
     avgOrderValue?: SortOrder
     totalOrders?: SortOrder
+    joinDate?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12337,13 +12213,13 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Customer"> | number
     name?: StringWithAggregatesFilter<"Customer"> | string
     email?: StringWithAggregatesFilter<"Customer"> | string
-    phone?: StringWithAggregatesFilter<"Customer"> | string
-    avatar?: StringWithAggregatesFilter<"Customer"> | string
-    joinDate?: StringWithAggregatesFilter<"Customer"> | string
+    phone?: StringNullableWithAggregatesFilter<"Customer"> | string | null
+    avatar?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     shopifyId?: StringNullableWithAggregatesFilter<"Customer"> | string | null
     ltv?: FloatWithAggregatesFilter<"Customer"> | number
     avgOrderValue?: FloatWithAggregatesFilter<"Customer"> | number
     totalOrders?: IntWithAggregatesFilter<"Customer"> | number
+    joinDate?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     isDeleted?: BoolWithAggregatesFilter<"Customer"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Customer"> | Date | string
@@ -12355,11 +12231,11 @@ export namespace Prisma {
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: IntFilter<"Order"> | number
     customerId?: IntFilter<"Order"> | number
-    shopifyOrderId?: StringNullableFilter<"Order"> | string | null
-    items?: JsonFilter<"Order">
     total?: FloatFilter<"Order"> | number
-    date?: StringFilter<"Order"> | string
     status?: StringFilter<"Order"> | string
+    date?: DateTimeFilter<"Order"> | Date | string
+    shopifyOrderId?: StringNullableFilter<"Order"> | string | null
+    items?: JsonNullableFilter<"Order">
     isDeleted?: BoolFilter<"Order"> | boolean
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -12369,11 +12245,11 @@ export namespace Prisma {
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
     customerId?: SortOrder
-    shopifyOrderId?: SortOrderInput | SortOrder
-    items?: SortOrder
     total?: SortOrder
-    date?: SortOrder
     status?: SortOrder
+    date?: SortOrder
+    shopifyOrderId?: SortOrderInput | SortOrder
+    items?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12386,11 +12262,11 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     customerId?: IntFilter<"Order"> | number
-    shopifyOrderId?: StringNullableFilter<"Order"> | string | null
-    items?: JsonFilter<"Order">
     total?: FloatFilter<"Order"> | number
-    date?: StringFilter<"Order"> | string
     status?: StringFilter<"Order"> | string
+    date?: DateTimeFilter<"Order"> | Date | string
+    shopifyOrderId?: StringNullableFilter<"Order"> | string | null
+    items?: JsonNullableFilter<"Order">
     isDeleted?: BoolFilter<"Order"> | boolean
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
@@ -12400,11 +12276,11 @@ export namespace Prisma {
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
     customerId?: SortOrder
-    shopifyOrderId?: SortOrderInput | SortOrder
-    items?: SortOrder
     total?: SortOrder
-    date?: SortOrder
     status?: SortOrder
+    date?: SortOrder
+    shopifyOrderId?: SortOrderInput | SortOrder
+    items?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12421,11 +12297,11 @@ export namespace Prisma {
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Order"> | number
     customerId?: IntWithAggregatesFilter<"Order"> | number
-    shopifyOrderId?: StringNullableWithAggregatesFilter<"Order"> | string | null
-    items?: JsonWithAggregatesFilter<"Order">
     total?: FloatWithAggregatesFilter<"Order"> | number
-    date?: StringWithAggregatesFilter<"Order"> | string
     status?: StringWithAggregatesFilter<"Order"> | string
+    date?: DateTimeWithAggregatesFilter<"Order"> | Date | string
+    shopifyOrderId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    items?: JsonNullableWithAggregatesFilter<"Order">
     isDeleted?: BoolWithAggregatesFilter<"Order"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -12436,28 +12312,26 @@ export namespace Prisma {
     OR?: TicketWhereInput[]
     NOT?: TicketWhereInput | TicketWhereInput[]
     id?: IntFilter<"Ticket"> | number
-    customerId?: IntFilter<"Ticket"> | number
+    customerId?: IntNullableFilter<"Ticket"> | number | null
     subject?: StringFilter<"Ticket"> | string
     status?: StringFilter<"Ticket"> | string
     priority?: StringFilter<"Ticket"> | string
-    lastMessage?: StringFilter<"Ticket"> | string
+    lastMessage?: StringNullableFilter<"Ticket"> | string | null
     isDeleted?: BoolFilter<"Ticket"> | boolean
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
-    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
   }
 
   export type TicketOrderByWithRelationInput = {
     id?: SortOrder
-    customerId?: SortOrder
+    customerId?: SortOrderInput | SortOrder
     subject?: SortOrder
     status?: SortOrder
     priority?: SortOrder
-    lastMessage?: SortOrder
+    lastMessage?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    customer?: CustomerOrderByWithRelationInput
   }
 
   export type TicketWhereUniqueInput = Prisma.AtLeast<{
@@ -12465,24 +12339,23 @@ export namespace Prisma {
     AND?: TicketWhereInput | TicketWhereInput[]
     OR?: TicketWhereInput[]
     NOT?: TicketWhereInput | TicketWhereInput[]
-    customerId?: IntFilter<"Ticket"> | number
+    customerId?: IntNullableFilter<"Ticket"> | number | null
     subject?: StringFilter<"Ticket"> | string
     status?: StringFilter<"Ticket"> | string
     priority?: StringFilter<"Ticket"> | string
-    lastMessage?: StringFilter<"Ticket"> | string
+    lastMessage?: StringNullableFilter<"Ticket"> | string | null
     isDeleted?: BoolFilter<"Ticket"> | boolean
     createdAt?: DateTimeFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeFilter<"Ticket"> | Date | string
-    customer?: XOR<CustomerScalarRelationFilter, CustomerWhereInput>
   }, "id">
 
   export type TicketOrderByWithAggregationInput = {
     id?: SortOrder
-    customerId?: SortOrder
+    customerId?: SortOrderInput | SortOrder
     subject?: SortOrder
     status?: SortOrder
     priority?: SortOrder
-    lastMessage?: SortOrder
+    lastMessage?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -12498,167 +12371,14 @@ export namespace Prisma {
     OR?: TicketScalarWhereWithAggregatesInput[]
     NOT?: TicketScalarWhereWithAggregatesInput | TicketScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Ticket"> | number
-    customerId?: IntWithAggregatesFilter<"Ticket"> | number
+    customerId?: IntNullableWithAggregatesFilter<"Ticket"> | number | null
     subject?: StringWithAggregatesFilter<"Ticket"> | string
     status?: StringWithAggregatesFilter<"Ticket"> | string
     priority?: StringWithAggregatesFilter<"Ticket"> | string
-    lastMessage?: StringWithAggregatesFilter<"Ticket"> | string
+    lastMessage?: StringNullableWithAggregatesFilter<"Ticket"> | string | null
     isDeleted?: BoolWithAggregatesFilter<"Ticket"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Ticket"> | Date | string
-  }
-
-  export type AutomationFlowWhereInput = {
-    AND?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
-    OR?: AutomationFlowWhereInput[]
-    NOT?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
-    id?: IntFilter<"AutomationFlow"> | number
-    name?: StringFilter<"AutomationFlow"> | string
-    description?: StringFilter<"AutomationFlow"> | string
-    status?: StringFilter<"AutomationFlow"> | string
-    dailyTriggers?: IntFilter<"AutomationFlow"> | number
-    successRate?: FloatFilter<"AutomationFlow"> | number
-    lastRun?: StringFilter<"AutomationFlow"> | string
-    isDeleted?: BoolFilter<"AutomationFlow"> | boolean
-    createdAt?: DateTimeFilter<"AutomationFlow"> | Date | string
-    updatedAt?: DateTimeFilter<"AutomationFlow"> | Date | string
-  }
-
-  export type AutomationFlowOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    status?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-    lastRun?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AutomationFlowWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
-    OR?: AutomationFlowWhereInput[]
-    NOT?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
-    name?: StringFilter<"AutomationFlow"> | string
-    description?: StringFilter<"AutomationFlow"> | string
-    status?: StringFilter<"AutomationFlow"> | string
-    dailyTriggers?: IntFilter<"AutomationFlow"> | number
-    successRate?: FloatFilter<"AutomationFlow"> | number
-    lastRun?: StringFilter<"AutomationFlow"> | string
-    isDeleted?: BoolFilter<"AutomationFlow"> | boolean
-    createdAt?: DateTimeFilter<"AutomationFlow"> | Date | string
-    updatedAt?: DateTimeFilter<"AutomationFlow"> | Date | string
-  }, "id">
-
-  export type AutomationFlowOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    status?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-    lastRun?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: AutomationFlowCountOrderByAggregateInput
-    _avg?: AutomationFlowAvgOrderByAggregateInput
-    _max?: AutomationFlowMaxOrderByAggregateInput
-    _min?: AutomationFlowMinOrderByAggregateInput
-    _sum?: AutomationFlowSumOrderByAggregateInput
-  }
-
-  export type AutomationFlowScalarWhereWithAggregatesInput = {
-    AND?: AutomationFlowScalarWhereWithAggregatesInput | AutomationFlowScalarWhereWithAggregatesInput[]
-    OR?: AutomationFlowScalarWhereWithAggregatesInput[]
-    NOT?: AutomationFlowScalarWhereWithAggregatesInput | AutomationFlowScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"AutomationFlow"> | number
-    name?: StringWithAggregatesFilter<"AutomationFlow"> | string
-    description?: StringWithAggregatesFilter<"AutomationFlow"> | string
-    status?: StringWithAggregatesFilter<"AutomationFlow"> | string
-    dailyTriggers?: IntWithAggregatesFilter<"AutomationFlow"> | number
-    successRate?: FloatWithAggregatesFilter<"AutomationFlow"> | number
-    lastRun?: StringWithAggregatesFilter<"AutomationFlow"> | string
-    isDeleted?: BoolWithAggregatesFilter<"AutomationFlow"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"AutomationFlow"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"AutomationFlow"> | Date | string
-  }
-
-  export type FlowRunWhereInput = {
-    AND?: FlowRunWhereInput | FlowRunWhereInput[]
-    OR?: FlowRunWhereInput[]
-    NOT?: FlowRunWhereInput | FlowRunWhereInput[]
-    id?: IntFilter<"FlowRun"> | number
-    flowId?: IntFilter<"FlowRun"> | number
-    flowName?: StringFilter<"FlowRun"> | string
-    status?: StringFilter<"FlowRun"> | string
-    timestamp?: StringFilter<"FlowRun"> | string
-    details?: StringFilter<"FlowRun"> | string
-    isDeleted?: BoolFilter<"FlowRun"> | boolean
-    createdAt?: DateTimeFilter<"FlowRun"> | Date | string
-    updatedAt?: DateTimeFilter<"FlowRun"> | Date | string
-  }
-
-  export type FlowRunOrderByWithRelationInput = {
-    id?: SortOrder
-    flowId?: SortOrder
-    flowName?: SortOrder
-    status?: SortOrder
-    timestamp?: SortOrder
-    details?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type FlowRunWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: FlowRunWhereInput | FlowRunWhereInput[]
-    OR?: FlowRunWhereInput[]
-    NOT?: FlowRunWhereInput | FlowRunWhereInput[]
-    flowId?: IntFilter<"FlowRun"> | number
-    flowName?: StringFilter<"FlowRun"> | string
-    status?: StringFilter<"FlowRun"> | string
-    timestamp?: StringFilter<"FlowRun"> | string
-    details?: StringFilter<"FlowRun"> | string
-    isDeleted?: BoolFilter<"FlowRun"> | boolean
-    createdAt?: DateTimeFilter<"FlowRun"> | Date | string
-    updatedAt?: DateTimeFilter<"FlowRun"> | Date | string
-  }, "id">
-
-  export type FlowRunOrderByWithAggregationInput = {
-    id?: SortOrder
-    flowId?: SortOrder
-    flowName?: SortOrder
-    status?: SortOrder
-    timestamp?: SortOrder
-    details?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: FlowRunCountOrderByAggregateInput
-    _avg?: FlowRunAvgOrderByAggregateInput
-    _max?: FlowRunMaxOrderByAggregateInput
-    _min?: FlowRunMinOrderByAggregateInput
-    _sum?: FlowRunSumOrderByAggregateInput
-  }
-
-  export type FlowRunScalarWhereWithAggregatesInput = {
-    AND?: FlowRunScalarWhereWithAggregatesInput | FlowRunScalarWhereWithAggregatesInput[]
-    OR?: FlowRunScalarWhereWithAggregatesInput[]
-    NOT?: FlowRunScalarWhereWithAggregatesInput | FlowRunScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"FlowRun"> | number
-    flowId?: IntWithAggregatesFilter<"FlowRun"> | number
-    flowName?: StringWithAggregatesFilter<"FlowRun"> | string
-    status?: StringWithAggregatesFilter<"FlowRun"> | string
-    timestamp?: StringWithAggregatesFilter<"FlowRun"> | string
-    details?: StringWithAggregatesFilter<"FlowRun"> | string
-    isDeleted?: BoolWithAggregatesFilter<"FlowRun"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"FlowRun"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"FlowRun"> | Date | string
   }
 
   export type KBItemWhereInput = {
@@ -12733,6 +12453,154 @@ export namespace Prisma {
     isDeleted?: BoolWithAggregatesFilter<"KBItem"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"KBItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"KBItem"> | Date | string
+  }
+
+  export type AutomationFlowWhereInput = {
+    AND?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
+    OR?: AutomationFlowWhereInput[]
+    NOT?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
+    id?: IntFilter<"AutomationFlow"> | number
+    name?: StringFilter<"AutomationFlow"> | string
+    status?: StringFilter<"AutomationFlow"> | string
+    dailyTriggers?: IntFilter<"AutomationFlow"> | number
+    successRate?: FloatFilter<"AutomationFlow"> | number
+    lastRun?: DateTimeNullableFilter<"AutomationFlow"> | Date | string | null
+    isDeleted?: BoolFilter<"AutomationFlow"> | boolean
+    createdAt?: DateTimeFilter<"AutomationFlow"> | Date | string
+    updatedAt?: DateTimeFilter<"AutomationFlow"> | Date | string
+  }
+
+  export type AutomationFlowOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+    lastRun?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutomationFlowWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
+    OR?: AutomationFlowWhereInput[]
+    NOT?: AutomationFlowWhereInput | AutomationFlowWhereInput[]
+    name?: StringFilter<"AutomationFlow"> | string
+    status?: StringFilter<"AutomationFlow"> | string
+    dailyTriggers?: IntFilter<"AutomationFlow"> | number
+    successRate?: FloatFilter<"AutomationFlow"> | number
+    lastRun?: DateTimeNullableFilter<"AutomationFlow"> | Date | string | null
+    isDeleted?: BoolFilter<"AutomationFlow"> | boolean
+    createdAt?: DateTimeFilter<"AutomationFlow"> | Date | string
+    updatedAt?: DateTimeFilter<"AutomationFlow"> | Date | string
+  }, "id">
+
+  export type AutomationFlowOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+    lastRun?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AutomationFlowCountOrderByAggregateInput
+    _avg?: AutomationFlowAvgOrderByAggregateInput
+    _max?: AutomationFlowMaxOrderByAggregateInput
+    _min?: AutomationFlowMinOrderByAggregateInput
+    _sum?: AutomationFlowSumOrderByAggregateInput
+  }
+
+  export type AutomationFlowScalarWhereWithAggregatesInput = {
+    AND?: AutomationFlowScalarWhereWithAggregatesInput | AutomationFlowScalarWhereWithAggregatesInput[]
+    OR?: AutomationFlowScalarWhereWithAggregatesInput[]
+    NOT?: AutomationFlowScalarWhereWithAggregatesInput | AutomationFlowScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AutomationFlow"> | number
+    name?: StringWithAggregatesFilter<"AutomationFlow"> | string
+    status?: StringWithAggregatesFilter<"AutomationFlow"> | string
+    dailyTriggers?: IntWithAggregatesFilter<"AutomationFlow"> | number
+    successRate?: FloatWithAggregatesFilter<"AutomationFlow"> | number
+    lastRun?: DateTimeNullableWithAggregatesFilter<"AutomationFlow"> | Date | string | null
+    isDeleted?: BoolWithAggregatesFilter<"AutomationFlow"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"AutomationFlow"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AutomationFlow"> | Date | string
+  }
+
+  export type FlowRunWhereInput = {
+    AND?: FlowRunWhereInput | FlowRunWhereInput[]
+    OR?: FlowRunWhereInput[]
+    NOT?: FlowRunWhereInput | FlowRunWhereInput[]
+    id?: IntFilter<"FlowRun"> | number
+    flowId?: IntNullableFilter<"FlowRun"> | number | null
+    status?: StringFilter<"FlowRun"> | string
+    name?: StringFilter<"FlowRun"> | string
+    timestamp?: DateTimeFilter<"FlowRun"> | Date | string
+    details?: StringNullableFilter<"FlowRun"> | string | null
+    isDeleted?: BoolFilter<"FlowRun"> | boolean
+    createdAt?: DateTimeFilter<"FlowRun"> | Date | string
+    updatedAt?: DateTimeFilter<"FlowRun"> | Date | string
+  }
+
+  export type FlowRunOrderByWithRelationInput = {
+    id?: SortOrder
+    flowId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    name?: SortOrder
+    timestamp?: SortOrder
+    details?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FlowRunWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FlowRunWhereInput | FlowRunWhereInput[]
+    OR?: FlowRunWhereInput[]
+    NOT?: FlowRunWhereInput | FlowRunWhereInput[]
+    flowId?: IntNullableFilter<"FlowRun"> | number | null
+    status?: StringFilter<"FlowRun"> | string
+    name?: StringFilter<"FlowRun"> | string
+    timestamp?: DateTimeFilter<"FlowRun"> | Date | string
+    details?: StringNullableFilter<"FlowRun"> | string | null
+    isDeleted?: BoolFilter<"FlowRun"> | boolean
+    createdAt?: DateTimeFilter<"FlowRun"> | Date | string
+    updatedAt?: DateTimeFilter<"FlowRun"> | Date | string
+  }, "id">
+
+  export type FlowRunOrderByWithAggregationInput = {
+    id?: SortOrder
+    flowId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    name?: SortOrder
+    timestamp?: SortOrder
+    details?: SortOrderInput | SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FlowRunCountOrderByAggregateInput
+    _avg?: FlowRunAvgOrderByAggregateInput
+    _max?: FlowRunMaxOrderByAggregateInput
+    _min?: FlowRunMinOrderByAggregateInput
+    _sum?: FlowRunSumOrderByAggregateInput
+  }
+
+  export type FlowRunScalarWhereWithAggregatesInput = {
+    AND?: FlowRunScalarWhereWithAggregatesInput | FlowRunScalarWhereWithAggregatesInput[]
+    OR?: FlowRunScalarWhereWithAggregatesInput[]
+    NOT?: FlowRunScalarWhereWithAggregatesInput | FlowRunScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"FlowRun"> | number
+    flowId?: IntNullableWithAggregatesFilter<"FlowRun"> | number | null
+    status?: StringWithAggregatesFilter<"FlowRun"> | string
+    name?: StringWithAggregatesFilter<"FlowRun"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"FlowRun"> | Date | string
+    details?: StringNullableWithAggregatesFilter<"FlowRun"> | string | null
+    isDeleted?: BoolWithAggregatesFilter<"FlowRun"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"FlowRun"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FlowRun"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -12972,84 +12840,80 @@ export namespace Prisma {
   export type CustomerCreateInput = {
     name: string
     email: string
-    phone: string
-    avatar: string
-    joinDate: string
+    phone?: string | null
+    avatar?: string | null
     shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
+    ltv?: number
+    avgOrderValue?: number
+    totalOrders?: number
+    joinDate?: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     orders?: OrderCreateNestedManyWithoutCustomerInput
-    tickets?: TicketCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateInput = {
     id?: number
     name: string
     email: string
-    phone: string
-    avatar: string
-    joinDate: string
+    phone?: string | null
+    avatar?: string | null
     shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
+    ltv?: number
+    avgOrderValue?: number
+    totalOrders?: number
+    joinDate?: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
-    tickets?: TicketUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
     ltv?: FloatFieldUpdateOperationsInput | number
     avgOrderValue?: FloatFieldUpdateOperationsInput | number
     totalOrders?: IntFieldUpdateOperationsInput | number
+    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUpdateManyWithoutCustomerNestedInput
-    tickets?: TicketUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
     ltv?: FloatFieldUpdateOperationsInput | number
     avgOrderValue?: FloatFieldUpdateOperationsInput | number
     totalOrders?: IntFieldUpdateOperationsInput | number
+    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
-    tickets?: TicketUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
     id?: number
     name: string
     email: string
-    phone: string
-    avatar: string
-    joinDate: string
+    phone?: string | null
+    avatar?: string | null
     shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
+    ltv?: number
+    avgOrderValue?: number
+    totalOrders?: number
+    joinDate?: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13058,13 +12922,13 @@ export namespace Prisma {
   export type CustomerUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
     ltv?: FloatFieldUpdateOperationsInput | number
     avgOrderValue?: FloatFieldUpdateOperationsInput | number
     totalOrders?: IntFieldUpdateOperationsInput | number
+    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13074,24 +12938,24 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
     ltv?: FloatFieldUpdateOperationsInput | number
     avgOrderValue?: FloatFieldUpdateOperationsInput | number
     totalOrders?: IntFieldUpdateOperationsInput | number
+    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderCreateInput = {
-    shopifyOrderId?: string | null
-    items: JsonNullValueInput | InputJsonValue
     total: number
-    date: string
     status: string
+    date?: Date | string
+    shopifyOrderId?: string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13101,22 +12965,22 @@ export namespace Prisma {
   export type OrderUncheckedCreateInput = {
     id?: number
     customerId: number
-    shopifyOrderId?: string | null
-    items: JsonNullValueInput | InputJsonValue
     total: number
-    date: string
     status: string
+    date?: Date | string
+    shopifyOrderId?: string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type OrderUpdateInput = {
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13126,11 +12990,11 @@ export namespace Prisma {
   export type OrderUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     customerId?: IntFieldUpdateOperationsInput | number
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13139,22 +13003,22 @@ export namespace Prisma {
   export type OrderCreateManyInput = {
     id?: number
     customerId: number
-    shopifyOrderId?: string | null
-    items: JsonNullValueInput | InputJsonValue
     total: number
-    date: string
     status: string
+    date?: Date | string
+    shopifyOrderId?: string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type OrderUpdateManyMutationInput = {
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13163,57 +13027,57 @@ export namespace Prisma {
   export type OrderUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     customerId?: IntFieldUpdateOperationsInput | number
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TicketCreateInput = {
+    customerId?: number | null
     subject: string
     status: string
     priority: string
-    lastMessage: string
+    lastMessage?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    customer: CustomerCreateNestedOneWithoutTicketsInput
   }
 
   export type TicketUncheckedCreateInput = {
     id?: number
-    customerId: number
+    customerId?: number | null
     subject: string
     status: string
     priority: string
-    lastMessage: string
+    lastMessage?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TicketUpdateInput = {
+    customerId?: NullableIntFieldUpdateOperationsInput | number | null
     subject?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
+    lastMessage?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customer?: CustomerUpdateOneRequiredWithoutTicketsNestedInput
   }
 
   export type TicketUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: NullableIntFieldUpdateOperationsInput | number | null
     subject?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
+    lastMessage?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13221,21 +13085,22 @@ export namespace Prisma {
 
   export type TicketCreateManyInput = {
     id?: number
-    customerId: number
+    customerId?: number | null
     subject: string
     status: string
     priority: string
-    lastMessage: string
+    lastMessage?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type TicketUpdateManyMutationInput = {
+    customerId?: NullableIntFieldUpdateOperationsInput | number | null
     subject?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
+    lastMessage?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13243,180 +13108,11 @@ export namespace Prisma {
 
   export type TicketUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    customerId?: IntFieldUpdateOperationsInput | number
+    customerId?: NullableIntFieldUpdateOperationsInput | number | null
     subject?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutomationFlowCreateInput = {
-    name: string
-    description: string
-    status: string
-    dailyTriggers: number
-    successRate: number
-    lastRun: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AutomationFlowUncheckedCreateInput = {
-    id?: number
-    name: string
-    description: string
-    status: string
-    dailyTriggers: number
-    successRate: number
-    lastRun: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AutomationFlowUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    dailyTriggers?: IntFieldUpdateOperationsInput | number
-    successRate?: FloatFieldUpdateOperationsInput | number
-    lastRun?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutomationFlowUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    dailyTriggers?: IntFieldUpdateOperationsInput | number
-    successRate?: FloatFieldUpdateOperationsInput | number
-    lastRun?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutomationFlowCreateManyInput = {
-    id?: number
-    name: string
-    description: string
-    status: string
-    dailyTriggers: number
-    successRate: number
-    lastRun: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AutomationFlowUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    dailyTriggers?: IntFieldUpdateOperationsInput | number
-    successRate?: FloatFieldUpdateOperationsInput | number
-    lastRun?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AutomationFlowUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    dailyTriggers?: IntFieldUpdateOperationsInput | number
-    successRate?: FloatFieldUpdateOperationsInput | number
-    lastRun?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FlowRunCreateInput = {
-    flowId: number
-    flowName: string
-    status: string
-    timestamp: string
-    details: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FlowRunUncheckedCreateInput = {
-    id?: number
-    flowId: number
-    flowName: string
-    status: string
-    timestamp: string
-    details: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FlowRunUpdateInput = {
-    flowId?: IntFieldUpdateOperationsInput | number
-    flowName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    timestamp?: StringFieldUpdateOperationsInput | string
-    details?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FlowRunUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    flowId?: IntFieldUpdateOperationsInput | number
-    flowName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    timestamp?: StringFieldUpdateOperationsInput | string
-    details?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FlowRunCreateManyInput = {
-    id?: number
-    flowId: number
-    flowName: string
-    status: string
-    timestamp: string
-    details: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type FlowRunUpdateManyMutationInput = {
-    flowId?: IntFieldUpdateOperationsInput | number
-    flowName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    timestamp?: StringFieldUpdateOperationsInput | string
-    details?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FlowRunUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    flowId?: IntFieldUpdateOperationsInput | number
-    flowName?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    timestamp?: StringFieldUpdateOperationsInput | string
-    details?: StringFieldUpdateOperationsInput | string
+    lastMessage?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13498,6 +13194,168 @@ export namespace Prisma {
     size?: StringFieldUpdateOperationsInput | string
     uploadedDate?: StringFieldUpdateOperationsInput | string
     storageKey?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AutomationFlowCreateInput = {
+    name: string
+    status: string
+    dailyTriggers?: number
+    successRate?: number
+    lastRun?: Date | string | null
+    isDeleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AutomationFlowUncheckedCreateInput = {
+    id?: number
+    name: string
+    status: string
+    dailyTriggers?: number
+    successRate?: number
+    lastRun?: Date | string | null
+    isDeleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AutomationFlowUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dailyTriggers?: IntFieldUpdateOperationsInput | number
+    successRate?: FloatFieldUpdateOperationsInput | number
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AutomationFlowUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dailyTriggers?: IntFieldUpdateOperationsInput | number
+    successRate?: FloatFieldUpdateOperationsInput | number
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AutomationFlowCreateManyInput = {
+    id?: number
+    name: string
+    status: string
+    dailyTriggers?: number
+    successRate?: number
+    lastRun?: Date | string | null
+    isDeleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AutomationFlowUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dailyTriggers?: IntFieldUpdateOperationsInput | number
+    successRate?: FloatFieldUpdateOperationsInput | number
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AutomationFlowUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    dailyTriggers?: IntFieldUpdateOperationsInput | number
+    successRate?: FloatFieldUpdateOperationsInput | number
+    lastRun?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlowRunCreateInput = {
+    flowId?: number | null
+    status: string
+    name: string
+    timestamp?: Date | string
+    details?: string | null
+    isDeleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlowRunUncheckedCreateInput = {
+    id?: number
+    flowId?: number | null
+    status: string
+    name: string
+    timestamp?: Date | string
+    details?: string | null
+    isDeleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlowRunUpdateInput = {
+    flowId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlowRunUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    flowId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlowRunCreateManyInput = {
+    id?: number
+    flowId?: number | null
+    status: string
+    name: string
+    timestamp?: Date | string
+    details?: string | null
+    isDeleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FlowRunUpdateManyMutationInput = {
+    flowId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FlowRunUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    flowId?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13843,17 +13701,7 @@ export namespace Prisma {
     none?: OrderWhereInput
   }
 
-  export type TicketListRelationFilter = {
-    every?: TicketWhereInput
-    some?: TicketWhereInput
-    none?: TicketWhereInput
-  }
-
   export type OrderOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type TicketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13863,11 +13711,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     avatar?: SortOrder
-    joinDate?: SortOrder
     shopifyId?: SortOrder
     ltv?: SortOrder
     avgOrderValue?: SortOrder
     totalOrders?: SortOrder
+    joinDate?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13886,11 +13734,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     avatar?: SortOrder
-    joinDate?: SortOrder
     shopifyId?: SortOrder
     ltv?: SortOrder
     avgOrderValue?: SortOrder
     totalOrders?: SortOrder
+    joinDate?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13902,11 +13750,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     avatar?: SortOrder
-    joinDate?: SortOrder
     shopifyId?: SortOrder
     ltv?: SortOrder
     avgOrderValue?: SortOrder
     totalOrders?: SortOrder
+    joinDate?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13934,29 +13782,6 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type CustomerScalarRelationFilter = {
     is?: CustomerWhereInput
@@ -13966,11 +13791,11 @@ export namespace Prisma {
   export type OrderCountOrderByAggregateInput = {
     id?: SortOrder
     customerId?: SortOrder
+    total?: SortOrder
+    status?: SortOrder
+    date?: SortOrder
     shopifyOrderId?: SortOrder
     items?: SortOrder
-    total?: SortOrder
-    date?: SortOrder
-    status?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13985,10 +13810,10 @@ export namespace Prisma {
   export type OrderMaxOrderByAggregateInput = {
     id?: SortOrder
     customerId?: SortOrder
-    shopifyOrderId?: SortOrder
     total?: SortOrder
-    date?: SortOrder
     status?: SortOrder
+    date?: SortOrder
+    shopifyOrderId?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13997,10 +13822,10 @@ export namespace Prisma {
   export type OrderMinOrderByAggregateInput = {
     id?: SortOrder
     customerId?: SortOrder
-    shopifyOrderId?: SortOrder
     total?: SortOrder
-    date?: SortOrder
     status?: SortOrder
+    date?: SortOrder
+    shopifyOrderId?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14011,31 +13836,16 @@ export namespace Prisma {
     customerId?: SortOrder
     total?: SortOrder
   }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type TicketCountOrderByAggregateInput = {
@@ -14084,101 +13894,20 @@ export namespace Prisma {
     customerId?: SortOrder
   }
 
-  export type AutomationFlowCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    status?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-    lastRun?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AutomationFlowAvgOrderByAggregateInput = {
-    id?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-  }
-
-  export type AutomationFlowMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    status?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-    lastRun?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AutomationFlowMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    status?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-    lastRun?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AutomationFlowSumOrderByAggregateInput = {
-    id?: SortOrder
-    dailyTriggers?: SortOrder
-    successRate?: SortOrder
-  }
-
-  export type FlowRunCountOrderByAggregateInput = {
-    id?: SortOrder
-    flowId?: SortOrder
-    flowName?: SortOrder
-    status?: SortOrder
-    timestamp?: SortOrder
-    details?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type FlowRunAvgOrderByAggregateInput = {
-    id?: SortOrder
-    flowId?: SortOrder
-  }
-
-  export type FlowRunMaxOrderByAggregateInput = {
-    id?: SortOrder
-    flowId?: SortOrder
-    flowName?: SortOrder
-    status?: SortOrder
-    timestamp?: SortOrder
-    details?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type FlowRunMinOrderByAggregateInput = {
-    id?: SortOrder
-    flowId?: SortOrder
-    flowName?: SortOrder
-    status?: SortOrder
-    timestamp?: SortOrder
-    details?: SortOrder
-    isDeleted?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type FlowRunSumOrderByAggregateInput = {
-    id?: SortOrder
-    flowId?: SortOrder
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type KBItemCountOrderByAggregateInput = {
@@ -14223,6 +13952,125 @@ export namespace Prisma {
 
   export type KBItemSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type AutomationFlowCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+    lastRun?: SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutomationFlowAvgOrderByAggregateInput = {
+    id?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+  }
+
+  export type AutomationFlowMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+    lastRun?: SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutomationFlowMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    status?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+    lastRun?: SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AutomationFlowSumOrderByAggregateInput = {
+    id?: SortOrder
+    dailyTriggers?: SortOrder
+    successRate?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type FlowRunCountOrderByAggregateInput = {
+    id?: SortOrder
+    flowId?: SortOrder
+    status?: SortOrder
+    name?: SortOrder
+    timestamp?: SortOrder
+    details?: SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FlowRunAvgOrderByAggregateInput = {
+    id?: SortOrder
+    flowId?: SortOrder
+  }
+
+  export type FlowRunMaxOrderByAggregateInput = {
+    id?: SortOrder
+    flowId?: SortOrder
+    status?: SortOrder
+    name?: SortOrder
+    timestamp?: SortOrder
+    details?: SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FlowRunMinOrderByAggregateInput = {
+    id?: SortOrder
+    flowId?: SortOrder
+    status?: SortOrder
+    name?: SortOrder
+    timestamp?: SortOrder
+    details?: SortOrder
+    isDeleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FlowRunSumOrderByAggregateInput = {
+    id?: SortOrder
+    flowId?: SortOrder
   }
 
   export type UserIdentityCreateNestedManyWithoutUserInput = {
@@ -14316,25 +14164,11 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type TicketCreateNestedManyWithoutCustomerInput = {
-    create?: XOR<TicketCreateWithoutCustomerInput, TicketUncheckedCreateWithoutCustomerInput> | TicketCreateWithoutCustomerInput[] | TicketUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TicketCreateOrConnectWithoutCustomerInput | TicketCreateOrConnectWithoutCustomerInput[]
-    createMany?: TicketCreateManyCustomerInputEnvelope
-    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-  }
-
   export type OrderUncheckedCreateNestedManyWithoutCustomerInput = {
     create?: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput> | OrderCreateWithoutCustomerInput[] | OrderUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutCustomerInput | OrderCreateOrConnectWithoutCustomerInput[]
     createMany?: OrderCreateManyCustomerInputEnvelope
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-  }
-
-  export type TicketUncheckedCreateNestedManyWithoutCustomerInput = {
-    create?: XOR<TicketCreateWithoutCustomerInput, TicketUncheckedCreateWithoutCustomerInput> | TicketCreateWithoutCustomerInput[] | TicketUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TicketCreateOrConnectWithoutCustomerInput | TicketCreateOrConnectWithoutCustomerInput[]
-    createMany?: TicketCreateManyCustomerInputEnvelope
-    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -14359,20 +14193,6 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type TicketUpdateManyWithoutCustomerNestedInput = {
-    create?: XOR<TicketCreateWithoutCustomerInput, TicketUncheckedCreateWithoutCustomerInput> | TicketCreateWithoutCustomerInput[] | TicketUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TicketCreateOrConnectWithoutCustomerInput | TicketCreateOrConnectWithoutCustomerInput[]
-    upsert?: TicketUpsertWithWhereUniqueWithoutCustomerInput | TicketUpsertWithWhereUniqueWithoutCustomerInput[]
-    createMany?: TicketCreateManyCustomerInputEnvelope
-    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    update?: TicketUpdateWithWhereUniqueWithoutCustomerInput | TicketUpdateWithWhereUniqueWithoutCustomerInput[]
-    updateMany?: TicketUpdateManyWithWhereWithoutCustomerInput | TicketUpdateManyWithWhereWithoutCustomerInput[]
-    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
-  }
-
   export type OrderUncheckedUpdateManyWithoutCustomerNestedInput = {
     create?: XOR<OrderCreateWithoutCustomerInput, OrderUncheckedCreateWithoutCustomerInput> | OrderCreateWithoutCustomerInput[] | OrderUncheckedCreateWithoutCustomerInput[]
     connectOrCreate?: OrderCreateOrConnectWithoutCustomerInput | OrderCreateOrConnectWithoutCustomerInput[]
@@ -14385,20 +14205,6 @@ export namespace Prisma {
     update?: OrderUpdateWithWhereUniqueWithoutCustomerInput | OrderUpdateWithWhereUniqueWithoutCustomerInput[]
     updateMany?: OrderUpdateManyWithWhereWithoutCustomerInput | OrderUpdateManyWithWhereWithoutCustomerInput[]
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
-  }
-
-  export type TicketUncheckedUpdateManyWithoutCustomerNestedInput = {
-    create?: XOR<TicketCreateWithoutCustomerInput, TicketUncheckedCreateWithoutCustomerInput> | TicketCreateWithoutCustomerInput[] | TicketUncheckedCreateWithoutCustomerInput[]
-    connectOrCreate?: TicketCreateOrConnectWithoutCustomerInput | TicketCreateOrConnectWithoutCustomerInput[]
-    upsert?: TicketUpsertWithWhereUniqueWithoutCustomerInput | TicketUpsertWithWhereUniqueWithoutCustomerInput[]
-    createMany?: TicketCreateManyCustomerInputEnvelope
-    set?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    disconnect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    delete?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    connect?: TicketWhereUniqueInput | TicketWhereUniqueInput[]
-    update?: TicketUpdateWithWhereUniqueWithoutCustomerInput | TicketUpdateWithWhereUniqueWithoutCustomerInput[]
-    updateMany?: TicketUpdateManyWithWhereWithoutCustomerInput | TicketUpdateManyWithWhereWithoutCustomerInput[]
-    deleteMany?: TicketScalarWhereInput | TicketScalarWhereInput[]
   }
 
   export type CustomerCreateNestedOneWithoutOrdersInput = {
@@ -14415,18 +14221,16 @@ export namespace Prisma {
     update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutOrdersInput, CustomerUpdateWithoutOrdersInput>, CustomerUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type CustomerCreateNestedOneWithoutTicketsInput = {
-    create?: XOR<CustomerCreateWithoutTicketsInput, CustomerUncheckedCreateWithoutTicketsInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutTicketsInput
-    connect?: CustomerWhereUniqueInput
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type CustomerUpdateOneRequiredWithoutTicketsNestedInput = {
-    create?: XOR<CustomerCreateWithoutTicketsInput, CustomerUncheckedCreateWithoutTicketsInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutTicketsInput
-    upsert?: CustomerUpsertWithoutTicketsInput
-    connect?: CustomerWhereUniqueInput
-    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutTicketsInput, CustomerUpdateWithoutTicketsInput>, CustomerUncheckedUpdateWithoutTicketsInput>
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -14629,28 +14433,57 @@ export namespace Prisma {
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
   }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type UserIdentityCreateWithoutUserInput = {
@@ -14762,11 +14595,11 @@ export namespace Prisma {
   }
 
   export type OrderCreateWithoutCustomerInput = {
-    shopifyOrderId?: string | null
-    items: JsonNullValueInput | InputJsonValue
     total: number
-    date: string
     status: string
+    date?: Date | string
+    shopifyOrderId?: string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14774,11 +14607,11 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutCustomerInput = {
     id?: number
-    shopifyOrderId?: string | null
-    items: JsonNullValueInput | InputJsonValue
     total: number
-    date: string
     status: string
+    date?: Date | string
+    shopifyOrderId?: string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14791,37 +14624,6 @@ export namespace Prisma {
 
   export type OrderCreateManyCustomerInputEnvelope = {
     data: OrderCreateManyCustomerInput | OrderCreateManyCustomerInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TicketCreateWithoutCustomerInput = {
-    subject: string
-    status: string
-    priority: string
-    lastMessage: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TicketUncheckedCreateWithoutCustomerInput = {
-    id?: number
-    subject: string
-    status: string
-    priority: string
-    lastMessage: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TicketCreateOrConnectWithoutCustomerInput = {
-    where: TicketWhereUniqueInput
-    create: XOR<TicketCreateWithoutCustomerInput, TicketUncheckedCreateWithoutCustomerInput>
-  }
-
-  export type TicketCreateManyCustomerInputEnvelope = {
-    data: TicketCreateManyCustomerInput | TicketCreateManyCustomerInput[]
     skipDuplicates?: boolean
   }
 
@@ -14847,78 +14649,45 @@ export namespace Prisma {
     NOT?: OrderScalarWhereInput | OrderScalarWhereInput[]
     id?: IntFilter<"Order"> | number
     customerId?: IntFilter<"Order"> | number
-    shopifyOrderId?: StringNullableFilter<"Order"> | string | null
-    items?: JsonFilter<"Order">
     total?: FloatFilter<"Order"> | number
-    date?: StringFilter<"Order"> | string
     status?: StringFilter<"Order"> | string
+    date?: DateTimeFilter<"Order"> | Date | string
+    shopifyOrderId?: StringNullableFilter<"Order"> | string | null
+    items?: JsonNullableFilter<"Order">
     isDeleted?: BoolFilter<"Order"> | boolean
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
   }
 
-  export type TicketUpsertWithWhereUniqueWithoutCustomerInput = {
-    where: TicketWhereUniqueInput
-    update: XOR<TicketUpdateWithoutCustomerInput, TicketUncheckedUpdateWithoutCustomerInput>
-    create: XOR<TicketCreateWithoutCustomerInput, TicketUncheckedCreateWithoutCustomerInput>
-  }
-
-  export type TicketUpdateWithWhereUniqueWithoutCustomerInput = {
-    where: TicketWhereUniqueInput
-    data: XOR<TicketUpdateWithoutCustomerInput, TicketUncheckedUpdateWithoutCustomerInput>
-  }
-
-  export type TicketUpdateManyWithWhereWithoutCustomerInput = {
-    where: TicketScalarWhereInput
-    data: XOR<TicketUpdateManyMutationInput, TicketUncheckedUpdateManyWithoutCustomerInput>
-  }
-
-  export type TicketScalarWhereInput = {
-    AND?: TicketScalarWhereInput | TicketScalarWhereInput[]
-    OR?: TicketScalarWhereInput[]
-    NOT?: TicketScalarWhereInput | TicketScalarWhereInput[]
-    id?: IntFilter<"Ticket"> | number
-    customerId?: IntFilter<"Ticket"> | number
-    subject?: StringFilter<"Ticket"> | string
-    status?: StringFilter<"Ticket"> | string
-    priority?: StringFilter<"Ticket"> | string
-    lastMessage?: StringFilter<"Ticket"> | string
-    isDeleted?: BoolFilter<"Ticket"> | boolean
-    createdAt?: DateTimeFilter<"Ticket"> | Date | string
-    updatedAt?: DateTimeFilter<"Ticket"> | Date | string
-  }
-
   export type CustomerCreateWithoutOrdersInput = {
     name: string
     email: string
-    phone: string
-    avatar: string
-    joinDate: string
+    phone?: string | null
+    avatar?: string | null
     shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
+    ltv?: number
+    avgOrderValue?: number
+    totalOrders?: number
+    joinDate?: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    tickets?: TicketCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutOrdersInput = {
     id?: number
     name: string
     email: string
-    phone: string
-    avatar: string
-    joinDate: string
+    phone?: string | null
+    avatar?: string | null
     shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
+    ltv?: number
+    avgOrderValue?: number
+    totalOrders?: number
+    joinDate?: Date | string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    tickets?: TicketUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutOrdersInput = {
@@ -14940,116 +14709,32 @@ export namespace Prisma {
   export type CustomerUpdateWithoutOrdersInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
     ltv?: FloatFieldUpdateOperationsInput | number
     avgOrderValue?: FloatFieldUpdateOperationsInput | number
     totalOrders?: IntFieldUpdateOperationsInput | number
+    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: TicketUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutOrdersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
     ltv?: FloatFieldUpdateOperationsInput | number
     avgOrderValue?: FloatFieldUpdateOperationsInput | number
     totalOrders?: IntFieldUpdateOperationsInput | number
+    joinDate?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tickets?: TicketUncheckedUpdateManyWithoutCustomerNestedInput
-  }
-
-  export type CustomerCreateWithoutTicketsInput = {
-    name: string
-    email: string
-    phone: string
-    avatar: string
-    joinDate: string
-    shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    orders?: OrderCreateNestedManyWithoutCustomerInput
-  }
-
-  export type CustomerUncheckedCreateWithoutTicketsInput = {
-    id?: number
-    name: string
-    email: string
-    phone: string
-    avatar: string
-    joinDate: string
-    shopifyId?: string | null
-    ltv: number
-    avgOrderValue: number
-    totalOrders: number
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
-  }
-
-  export type CustomerCreateOrConnectWithoutTicketsInput = {
-    where: CustomerWhereUniqueInput
-    create: XOR<CustomerCreateWithoutTicketsInput, CustomerUncheckedCreateWithoutTicketsInput>
-  }
-
-  export type CustomerUpsertWithoutTicketsInput = {
-    update: XOR<CustomerUpdateWithoutTicketsInput, CustomerUncheckedUpdateWithoutTicketsInput>
-    create: XOR<CustomerCreateWithoutTicketsInput, CustomerUncheckedCreateWithoutTicketsInput>
-    where?: CustomerWhereInput
-  }
-
-  export type CustomerUpdateToOneWithWhereWithoutTicketsInput = {
-    where?: CustomerWhereInput
-    data: XOR<CustomerUpdateWithoutTicketsInput, CustomerUncheckedUpdateWithoutTicketsInput>
-  }
-
-  export type CustomerUpdateWithoutTicketsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
-    shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
-    ltv?: FloatFieldUpdateOperationsInput | number
-    avgOrderValue?: FloatFieldUpdateOperationsInput | number
-    totalOrders?: IntFieldUpdateOperationsInput | number
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orders?: OrderUpdateManyWithoutCustomerNestedInput
-  }
-
-  export type CustomerUncheckedUpdateWithoutTicketsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    avatar?: StringFieldUpdateOperationsInput | string
-    joinDate?: StringFieldUpdateOperationsInput | string
-    shopifyId?: NullableStringFieldUpdateOperationsInput | string | null
-    ltv?: FloatFieldUpdateOperationsInput | number
-    avgOrderValue?: FloatFieldUpdateOperationsInput | number
-    totalOrders?: IntFieldUpdateOperationsInput | number
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type UserIdentityCreateManyUserInput = {
@@ -15094,33 +14779,22 @@ export namespace Prisma {
 
   export type OrderCreateManyCustomerInput = {
     id?: number
-    shopifyOrderId?: string | null
-    items: JsonNullValueInput | InputJsonValue
     total: number
-    date: string
     status: string
-    isDeleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TicketCreateManyCustomerInput = {
-    id?: number
-    subject: string
-    status: string
-    priority: string
-    lastMessage: string
+    date?: Date | string
+    shopifyOrderId?: string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type OrderUpdateWithoutCustomerInput = {
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15128,11 +14802,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutCustomerInput = {
     id?: IntFieldUpdateOperationsInput | number
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15140,43 +14814,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyWithoutCustomerInput = {
     id?: IntFieldUpdateOperationsInput | number
-    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
-    items?: JsonNullValueInput | InputJsonValue
     total?: FloatFieldUpdateOperationsInput | number
-    date?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketUpdateWithoutCustomerInput = {
-    subject?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketUncheckedUpdateWithoutCustomerInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    subject?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
-    isDeleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TicketUncheckedUpdateManyWithoutCustomerInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    subject?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    priority?: StringFieldUpdateOperationsInput | string
-    lastMessage?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    shopifyOrderId?: NullableStringFieldUpdateOperationsInput | string | null
+    items?: NullableJsonNullValueInput | InputJsonValue
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

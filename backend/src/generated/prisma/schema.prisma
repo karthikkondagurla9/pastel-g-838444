@@ -59,29 +59,28 @@ model Customer {
   id            Int      @id @default(autoincrement())
   name          String
   email         String
-  phone         String
-  avatar        String
-  joinDate      String
+  phone         String?
+  avatar        String?
   shopifyId     String?
-  ltv           Float
-  avgOrderValue Float
-  totalOrders   Int
-  orders        Order[]
-  tickets       Ticket[]
+  ltv           Float    @default(0)
+  avgOrderValue Float    @default(0)
+  totalOrders   Int      @default(0)
+  joinDate      DateTime @default(now())
   isDeleted     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+  orders        Order[]
 }
 
 model Order {
   id             Int      @id @default(autoincrement())
   customerId     Int
   customer       Customer @relation(fields: [customerId], references: [id])
-  shopifyOrderId String?
-  items          Json // Array of strings
   total          Float
-  date           String
-  status         String // 'delivered' | 'processing' | 'shipped' | 'cancelled'
+  status         String
+  date           DateTime @default(now())
+  shopifyOrderId String?
+  items          Json?
   isDeleted      Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
@@ -89,40 +88,14 @@ model Order {
 
 model Ticket {
   id          Int      @id @default(autoincrement())
-  customerId  Int
-  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  Int?
   subject     String
-  status      String // 'open' | 'pending' | 'closed'
-  priority    String // 'low' | 'medium' | 'high' | 'urgent'
-  lastMessage String
+  status      String
+  priority    String
+  lastMessage String?
   isDeleted   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-}
-
-model AutomationFlow {
-  id            Int      @id @default(autoincrement())
-  name          String
-  description   String
-  status        String // 'active' | 'paused'
-  dailyTriggers Int
-  successRate   Float
-  lastRun       String
-  isDeleted     Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-}
-
-model FlowRun {
-  id        Int      @id @default(autoincrement())
-  flowId    Int
-  flowName  String
-  status    String // 'success' | 'failed' | 'running'
-  timestamp String
-  details   String
-  isDeleted Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model KBItem {
@@ -131,8 +104,32 @@ model KBItem {
   type         String
   size         String
   uploadedDate String
-  storageKey   String? // Key in storage provider
+  storageKey   String?
   isDeleted    Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model AutomationFlow {
+  id            Int       @id @default(autoincrement())
+  name          String
+  status        String
+  dailyTriggers Int       @default(0)
+  successRate   Float     @default(0)
+  lastRun       DateTime?
+  isDeleted     Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model FlowRun {
+  id        Int      @id @default(autoincrement())
+  flowId    Int?
+  status    String
+  name      String
+  timestamp DateTime @default(now())
+  details   String?
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
