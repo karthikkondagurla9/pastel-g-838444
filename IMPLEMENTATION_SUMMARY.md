@@ -9,6 +9,7 @@
 - **Customer CRM**: Two-column layout with searchable customer list, detailed profiles, order history, and vertical activity timeline.
 - **Knowledge Base**: Document management system with file upload capabilities and AI context indexing information.
 - **Placeholder Pages**: Beautifully designed empty states for Products and Settings.
+- **Rebranding**: Updated the application identity from "CRM Dash" to "Support Hub", including a new Headset icon logo and updated page titles.
 
 ## Tech Stack & Design
 

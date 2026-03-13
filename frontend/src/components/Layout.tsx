@@ -12,7 +12,7 @@ import {
   X,
   ChevronRight,
   Send,
-  Sparkles
+  Headset
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -35,9 +35,9 @@ const Sidebar = () => {
     <aside className="fixed left-0 top-0 h-full w-64 bg-white/20 backdrop-blur-2xl border-r border-white/30 p-6 flex flex-col z-30">
       <div className="flex items-center gap-3 px-2 mb-10">
         <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center shadow-indigo-200 shadow-lg">
-          <Sparkles className="text-white w-6 h-6" />
+          <Headset className="text-white w-6 h-6" />
         </div>
-        <h1 className="text-xl font-bold tracking-tight text-slate-800">CRM Dash</h1>
+        <h1 className="text-xl font-bold tracking-tight text-slate-800">Support Hub</h1>
       </div>
 
       <nav className="flex-1 space-y-2">
